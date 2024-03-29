@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:carbon_foot_print/routes/route.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -64,7 +65,7 @@ class _LoginPageState extends State<LoginPage> {
                           controller: _usernameController,
                           decoration: const InputDecoration(
                             labelText: "用户名",
-                            hintText: "您的用户名",
+                            hintText: "输入您的邮箱",
                             prefixIcon: Icon(Icons.person),
                             // helperText: '用户名',
                             border: OutlineInputBorder(
@@ -147,7 +148,9 @@ class _LoginPageState extends State<LoginPage> {
                         Padding(
                             padding: const EdgeInsets.only(top: 30.0),
                             child: ElevatedButton.icon(
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.of(context).pushNamed(AppRoute.registerPage,arguments: true);
+                              },
                               label: const Text("注册"),
                               style: ElevatedButton.styleFrom(
                                   minimumSize: const Size(double.infinity, 50),

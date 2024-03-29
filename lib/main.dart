@@ -40,6 +40,7 @@ class MyApp extends StatelessWidget {
         ),
       ),
       debugShowCheckedModeBanner: false,
+      navigatorKey: AppRoute.navigatorKey,
       getPages: AppRoute.routes,
     );
   }

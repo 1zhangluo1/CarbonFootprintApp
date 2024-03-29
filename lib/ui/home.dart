@@ -1,3 +1,4 @@
+import 'package:carbon_foot_print/common/Global.dart';
 import 'package:carbon_foot_print/ui/main_four_page/ai_chat.dart';
 import 'package:carbon_foot_print/ui/main_four_page/analyze_chart.dart';
 import 'package:carbon_foot_print/ui/main_four_page/calculate.dart';
@@ -12,61 +13,61 @@ class MainStruct extends StatefulWidget {
 }
 
 class _MainStruct extends State<MainStruct> {
-
   int selected = 0;
   PageController pageController = PageController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      body: PageView(
-        physics: const PageScrollPhysics(),
-        onPageChanged: (index) {
-          setState(() {
-            selected = index;
-          });
-        },
-        controller: pageController,
-        children: const [
-          Page111(text: "莫楚楚"),
-          Page112(text: "郑粲然"),
-          Page113(text: "郑秀婷"),
-          Page114(text: "没有了")
-        ],
-      ),
-        bottomNavigationBar: NavigationBar(
-            destinations: const [
-              NavigationDestination(
-                tooltip: '计算',
+        backgroundColor: Colors.white,
+        body: PageView(
+          physics: const PageScrollPhysics(),
+          onPageChanged: (index) {
+            setState(() {
+              selected = index;
+            });
+          },
+          controller: pageController,
+          children: const [
+            Page111(text: "计算器界面"),
+            Page112(text: "AI"),
+            Page113(text: "分析"),
+            Page114()
+          ],
+        ),
+        bottomNavigationBar: SizedBox(
+          child: BottomNavigationBar(
+            items: const [
+              BottomNavigationBarItem(
                 icon: Icon(Icons.calculate_outlined),
-                label: '计算',
-                selectedIcon: Icon(Icons.calculate),
+                label: "计算",
+                tooltip: "计算",
               ),
-              NavigationDestination(
-                tooltip: 'AI',
+              BottomNavigationBarItem(
                 icon: Icon(Icons.chat_outlined),
-                label: 'C知道',
-                selectedIcon: Icon(Icons.chat),
+                label: "C知道",
+                tooltip: "AI",
               ),
-              NavigationDestination(
-                tooltip: '分析',
+              BottomNavigationBarItem(
                 icon: Icon(Icons.query_stats),
-                label: '分析',
-                selectedIcon: Icon(Icons.query_stats_outlined),
+                label: "分析",
+                tooltip: "分析报告",
               ),
-              NavigationDestination(
-                tooltip: '我的',
+              BottomNavigationBarItem(
                 icon: Icon(Icons.person_outlined),
-                label: '我的',
-                selectedIcon: Icon(Icons.person),
-              )
+                label: "我的",
+                tooltip: "我的",
+              ),
             ],
-            onDestinationSelected: (index) {
+            onTap: (index) {
               pageController.jumpToPage(index);
             },
-            selectedIndex: selected)
-    );
+            currentIndex: selected,
+            selectedItemColor: Colors.green,
+            unselectedItemColor: Colors.grey,
+            showUnselectedLabels: true,
+            type: BottomNavigationBarType.fixed,
+          ),
+        ));
   }
-
 }
