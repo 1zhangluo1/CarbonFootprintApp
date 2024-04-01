@@ -29,7 +29,7 @@ class _MainStruct extends State<MainStruct> {
           },
           controller: pageController,
           children: const [
-            Page111(text: "计算器界面"),
+            Page111(text: "碳足迹计算器"),
             Page112(text: "AI"),
             Page113(text: "分析"),
             Page114()

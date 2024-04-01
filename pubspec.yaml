@@ -39,10 +39,14 @@ dependencies:
   get: ^4.3.8
   flutter_svg: ^0.22.0
   url_launcher: ^6.2.5
+  event_bus: ^2.0.0
+
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  build_runner:
+  flutter_gen_runner:
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
@@ -67,9 +71,7 @@ flutter:
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
   assets:
-    - images/logo.jpg
-    - images/carbon.png
-    - images/clothing.png
+    - images/
 
   # An images asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
@@ -100,3 +102,10 @@ flutter:
         - asset: fonts/logo字体.ttf
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+
+# pubspec.yaml
+# ...
+
+flutter_gen:
+  output: lib/gen/ # Optional (default: lib/gen/)
+  line_length: 80 # Optional (default: 80)

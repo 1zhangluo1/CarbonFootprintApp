@@ -1,33 +1,50 @@
+import 'package:carbon_foot_print/common/EventBus.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
-class Items extends StatelessWidget {
+import '../../models/items.dart';
+
+class Items extends StatefulWidget {
   const Items({
     super.key,
-    required this.imagePath,
-    required this.itemName,
+    required this.item,
   });
 
-  final String? imagePath;
-  final String? itemName;
+  final Item item;
+
+  @override
+  _Item createState() => _Item();
+}
+
+class _Item extends State<Items> {
 
   @override
   Widget build(BuildContext context) {
     Widget image = Image(
-      image: AssetImage(imagePath!),
-      width: 50,
+      image: AssetImage(widget.item.imagePath),
+      width: 45,
       fit: BoxFit.contain,
     );
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        ClipOval(
-          child: image,
-        ),
-        Padding(
-          padding: const EdgeInsets.only(top: 10),
-          child: Text(itemName!),
-        ),
-      ],
+    return InkWell(
+      autofocus: true,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          ClipOval(
+            child: image,
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: 10),
+            child: Text(
+              widget.item.name,
+              textScaleFactor: 1.2,
+            ),
+          ),
+        ],
+      ),
+      onTap: () {
+        eventBus.fire(SelectedItem(widget.item));
+      },
     );
   }
 }
