@@ -46,13 +46,18 @@ class _CalculateState extends State<CalculateClass> {
             width: double.infinity,
             child: Wrap(
               spacing: 35,
-              runSpacing: 10,
+              runSpacing: 15,
               alignment: WrapAlignment.start,
               children: widgetList,
             ),
           ),
+          Divider(
+            thickness: 1,
+            height:0,
+            color: Colors.black,
+          ),
           Container(
-            height: 15,
+            height: 20,
           ),
           ValueListenableBuilder<Item>(
             builder: (BuildContext context, Item value, Widget? child) {
@@ -73,11 +78,9 @@ class _CalculateState extends State<CalculateClass> {
               }
               // builder 方法只会在 _counter 变化时被调用
               else {
-                return Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Execute(item: value),
-                  ],
+                return Container(
+                  width: double.infinity,
+                  child: Execute(item: value,),
                 );
               }
             },

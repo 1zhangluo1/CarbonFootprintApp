@@ -106,6 +106,9 @@ class $ImagesGen {
   /// File path: images/noselected.png
   AssetGenImage get noselected => const AssetGenImage('images/noselected.png');
 
+  /// File path: images/pay_code.jpg
+  AssetGenImage get payCode => const AssetGenImage('images/pay_code.jpg');
+
   /// File path: images/peanut.png
   AssetGenImage get peanut => const AssetGenImage('images/peanut.png');
 
@@ -181,6 +184,7 @@ class $ImagesGen {
         milke,
         naturalgas,
         noselected,
+        payCode,
         peanut,
         plastic,
         potato,
