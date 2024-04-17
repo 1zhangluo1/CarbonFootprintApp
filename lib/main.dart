@@ -1,17 +1,20 @@
+import 'package:carbon_foot_print/common/Global.dart';
 import 'package:carbon_foot_print/routes/route.dart';
-import 'package:carbon_foot_print/ui/home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-void main() {
-  runApp(const MyApp());
+void main() => Global.init().then((e) => runApp(MyApp()));
+
+class MyApp extends StatefulWidget {
+  MyApp({super.key});
+
+  @override
+  _MyApp createState() => _MyApp();
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  // This widget is the root of your application.
+class _MyApp extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     SystemUiOverlayStyle systemUiOverlayStyle = const SystemUiOverlayStyle(
@@ -33,10 +36,14 @@ class MyApp extends StatelessWidget {
     // );
     return GetMaterialApp(
       title: "碳足迹计算器",
+      darkTheme: ThemeData.dark(),
+      // 默认夜间模式主题
+      themeMode: ThemeMode.system,
+      // 根据系统设置选择日间模式或夜间模式
       theme: ThemeData(
         useMaterial3: true,
         colorScheme: ColorScheme.fromSeed(
-          seedColor: Colors.green,
+          seedColor: Global.themeColor,
         ),
       ),
       debugShowCheckedModeBanner: false,

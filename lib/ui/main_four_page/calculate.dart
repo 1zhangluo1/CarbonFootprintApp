@@ -167,49 +167,41 @@ class _PageState extends State<Page111> {
   Widget build(BuildContext context) {
     return DefaultTabController(
         length: tabs.length,
-        child: Theme(
-            data: ThemeData(
-              useMaterial3: true,
-              colorScheme: ColorScheme.fromSeed(
-                seedColor: Colors.lightGreenAccent,
+        child: Scaffold(
+            resizeToAvoidBottomInset: true,
+            backgroundColor: Theme.of(context).colorScheme.background,
+            appBar: AppBar(
+              title: Text(widget.text),
+              toolbarHeight: 40,
+              bottom: TabBar(
+                tabs: tabs
+                    .map((e) => Tab(
+                          text: e,
+                        ))
+                    .toList(),
               ),
             ),
-            child: Scaffold(
-                resizeToAvoidBottomInset: true,
-                backgroundColor: Colors.white,
-                appBar: AppBar(
-                  title: Text(widget.text),
-                  toolbarHeight: 40,
-                  bottom: TabBar(
-                    tabs: tabs
-                        .map((e) => Tab(
-                              text: e,
-                            ))
-                        .toList(),
-                  ),
-                ),
-                body: SingleChildScrollView(
-                  physics: PageScrollPhysics(),
-                  child: Column(
-                    children: [
-                      Align(
-                          alignment: Alignment.topLeft,
-                          child: Container(
-                            height: 600,
-                            child: TabBarView(
-                              physics: const NeverScrollableScrollPhysics(),
-                              children: [
-                                CalculateClass(contents: clothes),
-                                CalculateClass(contents: food),
-                                CalculateClass(contents: live),
-                                CalculateClass(contents: traffic),
-                                CalculateClass(contents: lifeConsume),
-                              ],
-                            ),
-                          )),
-                    ],
-                  ),
-                )
+            body: SingleChildScrollView(
+              physics: PageScrollPhysics(),
+              child: Column(
+                children: [
+                  Align(
+                      alignment: Alignment.topLeft,
+                      child: Container(
+                        height: 600,
+                        child: TabBarView(
+                          physics: const NeverScrollableScrollPhysics(),
+                          children: [
+                            CalculateClass(contents: clothes),
+                            CalculateClass(contents: food),
+                            CalculateClass(contents: live),
+                            CalculateClass(contents: traffic),
+                            CalculateClass(contents: lifeConsume),
+                          ],
+                        ),
+                      )),
+                ],
+              ),
             )
         )
     );

@@ -4,6 +4,7 @@ import 'package:carbon_foot_print/ui/main_four_page/analyze_chart.dart';
 import 'package:carbon_foot_print/ui/main_four_page/calculate.dart';
 import 'package:carbon_foot_print/ui/main_four_page/profile.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class MainStruct extends StatefulWidget {
   const MainStruct({super.key});
@@ -19,7 +20,7 @@ class _MainStruct extends State<MainStruct> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: Theme.of(context).colorScheme.background,
         body: PageView(
           physics: const PageScrollPhysics(),
           onPageChanged: (index) {
@@ -37,7 +38,7 @@ class _MainStruct extends State<MainStruct> {
         ),
         bottomNavigationBar: SizedBox(
           child: BottomNavigationBar(
-            items: const [
+            items: [
               BottomNavigationBarItem(
                 icon: Icon(Icons.calculate_outlined),
                 label: "计算",
@@ -63,7 +64,7 @@ class _MainStruct extends State<MainStruct> {
               pageController.jumpToPage(index);
             },
             currentIndex: selected,
-            selectedItemColor: Colors.green,
+            selectedItemColor: Theme.of(context).colorScheme.primary,
             unselectedItemColor: Colors.grey,
             showUnselectedLabels: true,
             type: BottomNavigationBarType.fixed,

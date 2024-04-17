@@ -1,4 +1,5 @@
 import 'package:carbon_foot_print/models/items.dart';
+import 'package:carbon_foot_print/ui/SelfWidgets/Toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -81,7 +82,7 @@ class _ExcuteState extends State<Execute> {
                   if (number.text.isNotEmpty) {
                     showResult(111);
                   } else if (number.text.isEmpty) {
-                    Get.snackbar("错误提醒", "输入不能为空哦");
+                    Toast("错误提醒", "输入不能为空哦");
                   }
                 },
                 style: ElevatedButton.styleFrom(

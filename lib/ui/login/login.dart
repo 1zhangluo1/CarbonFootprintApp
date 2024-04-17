@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:carbon_foot_print/routes/route.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -16,9 +15,9 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final TextEditingController _usernameController =
-  TextEditingController(text: "");
+      TextEditingController(text: "");
   final TextEditingController _passwordController =
-  TextEditingController(text: "");
+      TextEditingController(text: "");
   FocusScopeNode? focusScopeNode;
   final GlobalKey _formKey = GlobalKey<FormState>();
   bool _passwordVisible = false;
@@ -27,12 +26,12 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        toolbarHeight: 0,
-        backgroundColor: Colors.white,
-      ),
-      backgroundColor: Colors.white,
-      body: SingleChildScrollView(
+        appBar: AppBar(
+          toolbarHeight: 0,
+          backgroundColor: Theme.of(context).colorScheme.background,
+        ),
+        backgroundColor: Theme.of(context).colorScheme.background,
+        body: SingleChildScrollView(
           padding: const EdgeInsets.only(top: 50.0),
           child: Center(
             child: ConstrainedBox(
@@ -70,7 +69,7 @@ class _LoginPageState extends State<LoginPage> {
                             // helperText: '用户名',
                             border: OutlineInputBorder(
                                 borderRadius:
-                                BorderRadius.all(Radius.circular(16))),
+                                    BorderRadius.all(Radius.circular(16))),
                           ),
                           validator: (v) {
                             return v!.trim().isNotEmpty ? null : "账号不能为空";
@@ -103,7 +102,7 @@ class _LoginPageState extends State<LoginPage> {
                             // helperText: '密码',
                             border: const OutlineInputBorder(
                                 borderRadius:
-                                BorderRadius.all(Radius.circular(16))),
+                                    BorderRadius.all(Radius.circular(16))),
                           ),
                           validator: (v) {
                             return v!.trim().isNotEmpty ? null : "密码不能为空";
@@ -117,7 +116,7 @@ class _LoginPageState extends State<LoginPage> {
                                 alignment: Alignment.topLeft,
                                 child: Checkbox(
                                   value: isRememberPassword,
-                                  activeColor: Colors.green,
+                                  activeColor: Theme.of(context).primaryColor,
                                   //选中时的颜色
                                   onChanged: (value) {
                                     setState(() {
@@ -149,7 +148,9 @@ class _LoginPageState extends State<LoginPage> {
                             padding: const EdgeInsets.only(top: 30.0),
                             child: ElevatedButton.icon(
                               onPressed: () {
-                                Navigator.of(context).pushNamed(AppRoute.registerPage,arguments: true);
+                                Navigator.of(context).pushNamed(
+                                    AppRoute.registerPage,
+                                    arguments: true);
                               },
                               label: const Text("注册"),
                               style: ElevatedButton.styleFrom(
@@ -164,14 +165,12 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ),
           ),
-    )
-    );
+        ));
   }
 
   @override
   void initState() {
     super.initState();
-    print(isRememberPassword);
     initLoginInformation();
   }
 
@@ -183,7 +182,6 @@ class _LoginPageState extends State<LoginPage> {
   bool isShowCodeEditor = false;
 
   Future<void> rememberPassword() async {
-    print(isRememberPassword);
     if (isRememberPassword) {
       final prefs = await SharedPreferences.getInstance();
       await prefs.setString("account", _usernameController.text);

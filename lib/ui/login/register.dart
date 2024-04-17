@@ -1,4 +1,6 @@
-import 'package:flutter/cupertino.dart';
+import 'dart:async';
+import 'package:carbon_foot_print/ui/SelfWidgets/Toast.dart';
+import 'package:dio/dio.dart' as dios;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -13,7 +15,7 @@ class Register extends StatefulWidget {
 
 class _RegisterState extends State<Register> {
   final TextEditingController _usernameController =
-  TextEditingController(text: "");
+      TextEditingController(text: "");
   final TextEditingController _emailController =
       TextEditingController(text: "");
   final TextEditingController _passwordController =
@@ -24,15 +26,17 @@ class _RegisterState extends State<Register> {
   final GlobalKey _formKey = GlobalKey<FormState>();
   bool _passwordVisible = false;
   bool isSendCheckNum = false;
+  bool isClickSend = false;
+  int countTime = 120;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.white,
+          backgroundColor: Theme.of(context).colorScheme.background,
           title: const Text("注册新账户"),
         ),
-        backgroundColor: Colors.white,
+        backgroundColor: Theme.of(context).colorScheme.background,
         body: SingleChildScrollView(
           child: Center(
             child: ConstrainedBox(
@@ -58,7 +62,7 @@ class _RegisterState extends State<Register> {
                                 prefixIcon: Icon(Icons.person),
                                 border: OutlineInputBorder(
                                     borderRadius:
-                                    BorderRadius.all(Radius.circular(16))),
+                                        BorderRadius.all(Radius.circular(16))),
                               ),
                               validator: (v) {
                                 return v!.trim().isNotEmpty ? null : "昵称不能为空";
@@ -79,7 +83,7 @@ class _RegisterState extends State<Register> {
                                         BorderRadius.all(Radius.circular(16))),
                               ),
                               validator: (v) {
-                                return v!.trim().isNotEmpty ? null : "账号不能为空";
+                                return v!.trim().isNotEmpty ? null : "邮箱不能为空";
                               },
                             ),
                             const SizedBox(
@@ -90,7 +94,7 @@ class _RegisterState extends State<Register> {
                               obscureText: !_passwordVisible,
                               decoration: InputDecoration(
                                 labelText: "密码",
-                                hintText: "密码长度需大于6位数",
+                                hintText: "密码至少6位数",
                                 prefixIcon: const Icon(Icons.lock),
                                 suffixIcon: IconButton(
                                   icon: Icon(
@@ -112,7 +116,7 @@ class _RegisterState extends State<Register> {
                                         BorderRadius.all(Radius.circular(16))),
                               ),
                               validator: (v) {
-                                return v!.trim().length > 6 ? null : "密码不能为空";
+                                return v!.trim().length >= 6 ? null : "密码至少6位";
                               },
                             ),
                             const SizedBox(
@@ -125,25 +129,30 @@ class _RegisterState extends State<Register> {
                                 hintText: "输入您的验证码",
                                 prefixIcon: const Icon(Icons.person),
                                 suffixIcon: IconButton(
-                                  onPressed: () {
-                                    setState(() {
-                                      if (_emailController.text.isEmpty) {
-                                        Get.snackbar("请先填写邮箱", "");
-                                      }
-                                      else if (!isSendCheckNum &&
-                                      _passwordController.text.length >= 6 &&
-                                      _emailController.text.isNotEmpty) {
-                                      isSendCheckNum = !isSendCheckNum;
-                                      Get.snackbar("已发送", "");
-                                      }
-                                      else if (isSendCheckNum) {
-                                        Get.snackbar("已发送验证码,请勿重复点击", "");
-                                      }
-                                    });
-                                  },
+                                  onPressed: isClickSend
+                                      ? () {
+                                          Toast("发送中", "请耐心等待");
+                                        }
+                                      : () {
+                                          if (_emailController.text.isEmpty) {
+                                            Toast("请先填写邮箱", "");
+                                          } else if (isSendCheckNum) {
+                                            Toast("已发送验证码,请勿重复点击", "");
+                                          }
+                                          if (_emailController
+                                                  .text.isNotEmpty &&
+                                              !isSendCheckNum) {
+                                            sendCode(_emailController.text);
+                                          }
+                                        },
                                   icon: isSendCheckNum
-                                      ? const Text("已发送")
-                                      : const Text("发送验证码"),
+                                      ? Text(
+                                          "$countTime" "s",
+                                          textScaleFactor: 1.2,
+                                        )
+                                      : !isClickSend
+                                          ? Text("发送验证码")
+                                          : Text("发送中"),
                                 ),
                                 // helperText: '用户名',
                                 border: const OutlineInputBorder(
@@ -160,7 +169,12 @@ class _RegisterState extends State<Register> {
                             Padding(
                                 padding: const EdgeInsets.only(top: 30.0),
                                 child: ElevatedButton.icon(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    if ((_formKey.currentState as FormState)
+                                        .validate()) {
+                                      register();
+                                    }
+                                  },
                                   label: const Text("注册"),
                                   style: ElevatedButton.styleFrom(
                                       minimumSize:
@@ -179,8 +193,100 @@ class _RegisterState extends State<Register> {
         ));
   }
 
-  void sendNum() {
-    if (_emailController.text.isNotEmpty &&
-        _passwordController.text.trim().length > 6) {}
+  //发送验证码
+  Future<void> sendCode(String email) async {
+    setState(() {
+      isClickSend = true;
+    });
+    try {
+      dios.Dio dio = dios.Dio();
+      dios.FormData formData = dios.FormData.fromMap({
+        "email": email,
+      });
+      dios.Response response = await dio
+          .post("https://www.jzhangluo.com/v1/send_code", data: formData);
+      String resultMsg = response.data['msg'];
+      if (response.data['code'] == 200) {
+        Toast("已发送", resultMsg);
+        setState(() {
+          isSendCheckNum = true;
+          countTime = 120;
+          startCountdown();
+        });
+      } else if (response.data['code'] == -1) {
+        Toast("提醒", resultMsg);
+      } else if (response.data['code'] == -2) {
+        Toast("提醒", resultMsg);
+      } else if (response.data['code'] == -3) {
+        Toast("请规范填写邮箱", resultMsg);
+      } else if (response.data['code'] == 100) {
+        Toast("提醒", resultMsg);
+      }
+    } catch (e) {
+      Toast("请检查网络连接", e.toString());
+    } finally {
+      setState(() {
+        isClickSend = false;
+      });
+    }
+  }
+
+//注册
+  Future<void> register() async {
+    late String result;
+    String username = _usernameController.text;
+    String pass = _passwordController.text;
+    String email = _emailController.text;
+    String checkCode = _checkNumController.text;
+    dios.Dio dio = dios.Dio();
+    dios.FormData formData = dios.FormData.fromMap({
+      "username": username,
+      "password": pass,
+      "email": email,
+      "code": checkCode,
+    });
+    dios.Response response =
+        await dio.post("https://www.jzhangluo.com/v1/register", data: formData);
+    if (response.data['code'] == 200) {
+      result = response.data['msg'];
+      Toast(result, "5s后返回登录页");
+      Future.delayed(const Duration(seconds: 5), () {
+        if (Get.isSnackbarOpen) {
+          Get.back();
+        }
+        Get.back();
+      });
+    } else if (response.data['code'] == 100) {
+      result = response.data['msg'];
+      Toast(result, "");
+    } else if (response.data['code'] == -1) {
+      result = response.data['msg'];
+      Toast(result, "请检查后重新填写");
+    } else if (response.data['code'] == -2) {
+      result = response.data['msg'];
+      Toast("检验验证码时发生错误", result);
+    } else if (response.data['code'] == -3) {
+      result = response.data['msg'];
+      Toast("创建用户时发生错误", result);
+    } else if (response.data['code'] == -4) {
+      result = response.data['msg'];
+      Toast("该用户已注册", result);
+    }
+  }
+
+//倒计时
+  void startCountdown() {
+    Timer.periodic(const Duration(seconds: 1), (Timer timer) {
+      if (countTime == 0) {
+        setState(() {
+          isSendCheckNum = false;
+          timer.cancel();
+        });
+      } else {
+        setState(() {
+          countTime--;
+        });
+      }
+    });
   }
 }

@@ -6,6 +6,7 @@ import 'package:url_launcher/url_launcher.dart' as launcher;
 import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../routes/route.dart';
+import '../SelfWidgets/Toast.dart';
 
 class Page114 extends StatefulWidget {
   const Page114({super.key});
@@ -18,9 +19,9 @@ class _PageState extends State<Page114> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Theme.of(context).colorScheme.background,
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: Theme.of(context).colorScheme.background,
         title: const Text("个人主页"),
       ),
       body: Center(
@@ -132,7 +133,7 @@ class _PageState extends State<Page114> {
                       ),
                       ListTile(
                         onTap: () {
-                          Get.snackbar("当前是最新版本", "");
+                          Toast("当前是最新版本", "");
                         },
                         leading: const Icon(Icons.info_outline),
                         // Icon for the version tile
