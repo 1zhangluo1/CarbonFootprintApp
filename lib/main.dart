@@ -1,4 +1,5 @@
 import 'package:carbon_foot_print/common/Global.dart';
+import 'package:carbon_foot_print/internation/Internet.dart';
 import 'package:carbon_foot_print/routes/route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -46,6 +47,7 @@ class _MyApp extends State<MyApp> {
           seedColor: Global.themeColor,
         ),
       ),
+      translations: Internet(),
       debugShowCheckedModeBanner: false,
       navigatorKey: AppRoute.navigatorKey,
       getPages: AppRoute.routes,

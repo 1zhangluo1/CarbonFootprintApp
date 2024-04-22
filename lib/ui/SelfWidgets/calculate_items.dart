@@ -1,7 +1,8 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:carbon_foot_print/common/EventBus.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
+import 'package:get/get.dart';
 import '../../models/items.dart';
 
 class Items extends StatefulWidget {
@@ -17,7 +18,6 @@ class Items extends StatefulWidget {
 }
 
 class _Item extends State<Items> {
-
   @override
   Widget build(BuildContext context) {
     Widget image = Image(
@@ -25,26 +25,28 @@ class _Item extends State<Items> {
       width: 45,
       fit: BoxFit.contain,
     );
-    return InkWell(
-      autofocus: true,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          ClipOval(
-            child: image,
-          ),
-          Padding(
-            padding: const EdgeInsets.only(top: 10),
-            child: Text(
-              widget.item.name,
-              textScaleFactor: 1.2,
+    return SizedBox(
+      width: 46,
+      child: InkWell(
+        autofocus: true,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ClipOval(
+              child: image,
             ),
-          ),
-        ],
+            Padding(
+              padding: EdgeInsets.only(top: 10),
+              child: AutoSizeText(
+                widget.item.name.tr,
+              ),
+            ),
+          ],
+        ),
+        onTap: () {
+          eventBus.fire(SelectedItem(widget.item));
+        },
       ),
-      onTap: () {
-        eventBus.fire(SelectedItem(widget.item));
-      },
     );
   }
 }

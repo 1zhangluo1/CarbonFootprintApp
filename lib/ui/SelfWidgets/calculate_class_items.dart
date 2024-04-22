@@ -19,7 +19,12 @@ class CalculateClass extends StatefulWidget {
 
 class _CalculateState extends State<CalculateClass> {
   ValueNotifier<Item> isShowItem =
-      ValueNotifier<Item>(const Item("还未选择哦", "null", "null"));
+      ValueNotifier<Item>(Item('还未选择哦', 'null', 'null', (double a) {
+    return Map<int, double>.from({
+      1: 0.0,
+      2: 0.0,
+    });
+  }));
 
   var Events;
 
@@ -51,40 +56,44 @@ class _CalculateState extends State<CalculateClass> {
               children: widgetList,
             ),
           ),
-          Divider(
+          const Divider(
             thickness: 1,
-            height:0,
+            height: 0,
             color: Colors.black,
           ),
           Container(
             height: 20,
           ),
-          ValueListenableBuilder<Item>(
-            builder: (BuildContext context, Item value, Widget? child) {
-              if (value.name == "还未选择哦") {
-                return Column(
-                  children: [
-                    Image(
-                      image: AssetImage(Assets.images.noselected.path),
-                      width: 80,
+          Expanded(
+            child: ValueListenableBuilder<Item>(
+              builder: (BuildContext context, Item value, Widget? child) {
+                if (value.name == "还未选择哦") {
+                  return Column(
+                    children: [
+                      Image(
+                        image: AssetImage(Assets.images.noselected.path),
+                        width: 80,
+                      ),
+                      const Padding(padding: EdgeInsets.all(10)),
+                      const Text(
+                        "还未选择要计算的产品哦!!!",
+                        textScaleFactor: 1.5,
+                      ),
+                    ],
+                  );
+                }
+                // builder 方法只会在 _counter 变化时被调用
+                else {
+                  return Container(
+                    width: double.infinity,
+                    child: Execute(
+                      item: value,
                     ),
-                    const Padding(padding: EdgeInsets.all(10)),
-                    const Text(
-                      "还未选择要计算的产品哦!!!",
-                      textScaleFactor: 1.5,
-                    ),
-                  ],
-                );
-              }
-              // builder 方法只会在 _counter 变化时被调用
-              else {
-                return Container(
-                  width: double.infinity,
-                  child: Execute(item: value,),
-                );
-              }
-            },
-            valueListenable: isShowItem,
+                  );
+                }
+              },
+              valueListenable: isShowItem,
+            ),
           )
         ],
       ),

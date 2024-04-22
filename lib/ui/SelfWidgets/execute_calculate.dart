@@ -1,21 +1,28 @@
+import 'package:carbon_foot_print/common/Global.dart';
 import 'package:carbon_foot_print/models/items.dart';
+import 'package:carbon_foot_print/ui/SelfWidgets/ParamDialog.dart';
 import 'package:carbon_foot_print/ui/SelfWidgets/Toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 class Execute extends StatefulWidget {
-  const Execute({super.key, required this.item});
+  Execute({super.key, required this.item});
 
-  final Item item;
+  Item item;
 
   @override
-  _ExcuteState createState() => _ExcuteState();
+  _ExcuteState createState() => _ExcuteState(item);
 }
 
 class _ExcuteState extends State<Execute> {
-  final TextEditingController number = TextEditingController(text: "");
+  _ExcuteState(this.item);
+
+  late Item item;
+
+  final TextEditingController number = TextEditingController();
   GlobalKey format = GlobalKey<FormState>();
+  late ParamDialog dialog;
 
   @override
   Widget build(BuildContext context) {
@@ -79,11 +86,15 @@ class _ExcuteState extends State<Execute> {
             padding: const EdgeInsets.all(20.0),
             child: ElevatedButton(
                 onPressed: () {
-                  if (number.text.isNotEmpty) {
-                    showResult(111);
+                  if (isNumeric(number.text)) {
+                    widget.item.num = double.parse(number.text);
+                    widget.item.calculateResult(double.parse(number.text));
+                    ParamDialog dialog = ParamDialog(widget.item);
+                    showResult(dialog);
                   } else if (number.text.isEmpty) {
                     Toast("错误提醒", "输入不能为空哦");
-                  }
+                  } else
+                    Toast("错误提醒", "请规范输入");
                 },
                 style: ElevatedButton.styleFrom(
                     backgroundColor: const Color.fromARGB(255, 93, 236, 164),
@@ -104,33 +115,18 @@ class _ExcuteState extends State<Execute> {
     );
   }
 
-  void showResult(double number) {
-    Get.dialog(
-      result,
-      useSafeArea: false,
-      barrierDismissible: false,);
+  bool isNumeric(String str) {
+    if (str == null) {
+      return false;
+    }
+    return double.tryParse(str) != null;
   }
 
-  AlertDialog result = AlertDialog(
-    title: const Text("计算结果"),
-    content: const Column(
-      mainAxisSize: MainAxisSize.min,
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        Text.rich(TextSpan(children: [
-          TextSpan(text: "您本次排放CO2的量为："),
-          TextSpan(text: "10.5kg", style: TextStyle(color: Colors.green))
-        ]),textScaleFactor: 1.3,),
-        Text.rich(TextSpan(children: [
-          TextSpan(text: "您需要种植"),
-          TextSpan(text: "1.1", style: TextStyle(color: Colors.green)),
-          TextSpan(text: "棵树来抵消您的碳排放"),
-        ]),textScaleFactor: 1.3,),
-      ],
-    ),
-    actions: [
-      TextButton(onPressed: () {Get.back();}, child: const Text("返回")),
-      TextButton(onPressed: () {}, child: const Text("保存")),
-    ],
-  );
+  void showResult(ParamDialog dialog) {
+    Get.dialog(
+      dialog,
+      useSafeArea: false,
+      barrierDismissible: false,
+    );
+  }
 }

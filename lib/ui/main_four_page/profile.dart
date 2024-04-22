@@ -2,9 +2,9 @@ import 'package:carbon_foot_print/common/Global.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart' as launcher;
 import 'package:url_launcher/url_launcher_string.dart';
-
 import '../../routes/route.dart';
 import '../SelfWidgets/Toast.dart';
 
@@ -22,7 +22,7 @@ class _PageState extends State<Page114> {
       backgroundColor: Theme.of(context).colorScheme.background,
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.background,
-        title: const Text("个人主页"),
+        title: Text("个人主页".tr),
       ),
       body: Center(
         child: ConstrainedBox(
@@ -41,7 +41,7 @@ class _PageState extends State<Page114> {
                     },
                     child: Container(
                       padding: const EdgeInsets.all(20),
-                      child: const Row(
+                      child: Row(
                         children: [
                           Image(
                             image: AssetImage("images/carbon.png"),
@@ -49,12 +49,28 @@ class _PageState extends State<Page114> {
                             height: 50,
                             fit: BoxFit.contain,
                           ),
-                          Padding(padding: EdgeInsets.only(right: 15)),
-                          //Obx( () { return const Text("登录");}),
-                          Text(
-                            "点击登录",
-                            textScaleFactor: 1.3,
-                          ),
+                          Padding(padding: EdgeInsets.only(right: 30)),
+                          Obx(() {
+                            return Global.isLogin.value
+                                ? Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        Global.profile.username,
+                                        textScaleFactor: 1.2,
+                                      ),
+                                      Text(
+                                        Global.profile.email,
+                                        textScaleFactor: 1.2,
+                                      ),
+                                    ],
+                                  )
+                                : Text(
+                                    "点击登录".tr,
+                                    textScaleFactor: 1.3,
+                                  );
+                          }),
                         ],
                       ),
                     ),
@@ -70,20 +86,21 @@ class _PageState extends State<Page114> {
                     children: [
                       ListTile(
                         onTap: () {
-                          Navigator.of(context).pushNamed(AppRoute.detail_profile);
+                          Navigator.of(context)
+                              .pushNamed(AppRoute.detail_profile);
                         },
                         leading: const Icon(Icons.person),
-                        // Icon for "选课"
-                        title: const Text("个人信息"),
+                        title: Text("个人信息".tr),
                         trailing: const Icon(Icons.arrow_forward_ios_outlined),
                       ),
                       ListTile(
                         onTap: () {
-                          Navigator.of(context).pushNamed(AppRoute.change_password);
+                          Navigator.of(context)
+                              .pushNamed(AppRoute.change_password);
                         },
                         leading: const Icon(Icons.border_color),
                         // Icon for "评教"
-                        title: const Text("修改密码"),
+                        title: Text("修改密码".tr),
                         trailing: const Icon(Icons.arrow_forward_ios_outlined),
                       ),
                       ListTile(
@@ -92,7 +109,7 @@ class _PageState extends State<Page114> {
                         },
                         leading: const Icon(Icons.schedule),
                         // Icon for "关于"
-                        title: const Text("历史记录"),
+                        title: Text("历史记录".tr),
                         trailing: const Icon(Icons.arrow_forward_ios_outlined),
                       ),
                       ListTile(
@@ -101,25 +118,27 @@ class _PageState extends State<Page114> {
                         },
                         leading: const Icon(Icons.contrast),
                         // Icon for "关于"
-                        title: const Text("应用主题"),
+                        title: Text("应用主题".tr),
                         trailing: const Icon(Icons.arrow_forward_ios_outlined),
                       ),
                       ListTile(
                         onTap: () {
-                          Navigator.of(context).pushNamed(AppRoute.language_select);
+                          Navigator.of(context)
+                              .pushNamed(AppRoute.language_select);
                         },
                         leading: const Icon(Icons.language),
                         // Icon for "连接校园网"
-                        title: const Text("语言风格"),
+                        title: Text("语言风格".tr),
                         trailing: const Icon(Icons.arrow_forward_ios_outlined),
                       ),
                       ListTile(
                         onTap: () {
-                          Navigator.of(context).pushNamed(AppRoute.praise_author);
+                          Navigator.of(context)
+                              .pushNamed(AppRoute.praise_author);
                         },
                         leading: const Icon(Icons.thumb_up),
                         // Icon for "连接校园网"
-                        title: const Text("给开发者点赞!"),
+                        title: Text("给开发者点赞".tr),
                         trailing: const Icon(Icons.arrow_forward_ios_outlined),
                       ),
                       ListTile(
@@ -128,16 +147,19 @@ class _PageState extends State<Page114> {
                         },
                         leading: const Icon(Icons.info_outlined),
                         // Icon for "关于"
-                        title: const Text("关于"),
+                        title: Text("关于".tr),
                         trailing: const Icon(Icons.arrow_forward_ios_outlined),
                       ),
                       ListTile(
                         onTap: () {
-                          Toast("当前是最新版本", "");
+                          Toast("当前是最新版本".tr, "");
                         },
                         leading: const Icon(Icons.info_outline),
                         // Icon for the version tile
-                        title: Text("版本: ${Global.versionCode}"),
+                        title: Text.rich(TextSpan(children: [
+                          TextSpan(text: "版本：".tr),
+                          TextSpan(text: "1.1.0"),
+                        ])),
                         trailing: const Icon(Icons.arrow_forward_ios_outlined),
                       ),
                       Padding(
@@ -148,9 +170,15 @@ class _PageState extends State<Page114> {
                                 minimumSize: const Size(double.infinity, 50),
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(40))),
-                            onPressed: () {},
-                            child: const Text(
-                              "退出登录",
+                            onPressed: () async {
+                              Global.isLogin.value
+                                  ? Get.dialog(
+                                      alertDialog,
+                                    )
+                                  : Toast("未登录", "请先登录");
+                            },
+                            child: Text(
+                              "退出登录".tr,
                               textScaleFactor: 1.3,
                             ),
                           ),
@@ -161,9 +189,10 @@ class _PageState extends State<Page114> {
                         child: Center(
                           child: Text.rich(
                             TextSpan(children: [
-                              const TextSpan(
+                              TextSpan(
                                   text:
-                                      "一个使用 Flutter 开发的 碳足迹计算器，此项目正在开发中，更多信息请关注 "),
+                                      "一个使用 Flutter 开发的 碳足迹计算器，此项目正在开发中，更多信息请关注 "
+                                          .tr),
                               TextSpan(
                                   text:
                                       "https://github.com/1zhangluo1/CarbonFootprintApp",
@@ -191,4 +220,23 @@ class _PageState extends State<Page114> {
       ),
     );
   }
+
+  AlertDialog alertDialog = AlertDialog(
+    title: Text("温馨提示"),
+    content: Text(
+      "您确定要退出登录吗".tr,
+      textScaleFactor: 1.1,
+    ),
+    actions: [
+      TextButton(onPressed: () => Get.back(), child: Text("取消".tr)),
+      TextButton(
+          onPressed: () async {
+            Global.isLogin.value = false;
+            SharedPreferences pref = await SharedPreferences.getInstance();
+            pref.setBool("isLogin", false);
+            Get.back();
+          },
+          child: Text("确定".tr)),
+    ],
+  );
 }

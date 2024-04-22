@@ -41,6 +41,8 @@ dependencies:
   url_launcher: ^6.2.5
   event_bus: ^2.0.0
   dio: ^5.0.0
+  auto_size_text: ^3.0.0
+  fluttertoast: ^8.2.5
 
 
 dev_dependencies:

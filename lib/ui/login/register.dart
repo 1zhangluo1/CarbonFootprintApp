@@ -245,32 +245,36 @@ class _RegisterState extends State<Register> {
       "email": email,
       "code": checkCode,
     });
-    dios.Response response =
-        await dio.post("https://www.jzhangluo.com/v1/register", data: formData);
-    if (response.data['code'] == 200) {
-      result = response.data['msg'];
-      Toast(result, "5s后返回登录页");
-      Future.delayed(const Duration(seconds: 5), () {
-        if (Get.isSnackbarOpen) {
+    try {
+      dios.Response response = await dio
+          .post("https://www.jzhangluo.com/v1/register", data: formData);
+      if (response.data['code'] == 200) {
+        result = response.data['msg'];
+        Toast(result, "5s后返回登录页");
+        Future.delayed(const Duration(seconds: 5), () {
+          if (Get.isSnackbarOpen) {
+            Get.back();
+          }
           Get.back();
-        }
-        Get.back();
-      });
-    } else if (response.data['code'] == 100) {
-      result = response.data['msg'];
-      Toast(result, "");
-    } else if (response.data['code'] == -1) {
-      result = response.data['msg'];
-      Toast(result, "请检查后重新填写");
-    } else if (response.data['code'] == -2) {
-      result = response.data['msg'];
-      Toast("检验验证码时发生错误", result);
-    } else if (response.data['code'] == -3) {
-      result = response.data['msg'];
-      Toast("创建用户时发生错误", result);
-    } else if (response.data['code'] == -4) {
-      result = response.data['msg'];
-      Toast("该用户已注册", result);
+        });
+      } else if (response.data['code'] == 100) {
+        result = response.data['msg'];
+        Toast(result, "");
+      } else if (response.data['code'] == -1) {
+        result = response.data['msg'];
+        Toast(result, "请检查后重新填写");
+      } else if (response.data['code'] == -2) {
+        result = response.data['msg'];
+        Toast("检验验证码时发生错误", result);
+      } else if (response.data['code'] == -3) {
+        result = response.data['msg'];
+        Toast("创建用户时发生错误", result);
+      } else if (response.data['code'] == -4) {
+        result = response.data['msg'];
+        Toast("该用户已注册", result);
+      }
+    } catch (e) {
+      Toast("请检查网络连接", e.toString());
     }
   }
 

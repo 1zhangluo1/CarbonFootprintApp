@@ -52,6 +52,9 @@ class $ImagesGen {
   /// File path: images/bus.png
   AssetGenImage get bus => const AssetGenImage('images/bus.png');
 
+  /// File path: images/c_logo.png
+  AssetGenImage get cLogo => const AssetGenImage('images/c_logo.png');
+
   /// File path: images/car.png
   AssetGenImage get car => const AssetGenImage('images/car.png');
 
@@ -166,6 +169,7 @@ class $ImagesGen {
         beer,
         building,
         bus,
+        cLogo,
         car,
         carbon,
         chicken,
