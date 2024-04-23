@@ -1,4 +1,3 @@
-
 import 'package:carbon_foot_print/models/User.dart';
 import 'package:carbon_foot_print/ui/SelfWidgets/Toast.dart';
 import 'package:dio/dio.dart' as dio;
@@ -18,20 +17,21 @@ class Global {
 
   static Color themeColor = Colors.green;
 
-  static User profile = const User(0, "", "");
+  static Rx<User> profile = User(0, "", "").obs;
 
   static Future init() async {
     WidgetsFlutterBinding.ensureInitialized();
     final prefs = await SharedPreferences.getInstance();
     int colorId = prefs.getInt("themeId") ?? 0;
-    if(colorId != 7)Global.themeColor = getColorById(colorId);
-    else if(colorId == 7){
+    if (colorId != 7)
+      Global.themeColor = getColorById(colorId);
+    else if (colorId == 7) {
       Get.changeTheme(ThemeData.dark());
     }
-    isLogin.value = prefs.getBool("isLogin") ?? false ;
+    isLogin.value = prefs.getBool("isLogin") ?? false;
     String token = prefs.getString("token") ?? "";
     if (token != "") {
-      InitUser(token,prefs);
+      InitUser(token, prefs);
     }
   }
 
@@ -62,9 +62,9 @@ class Global {
         'token': token,
       };
       dio.Response response =
-      await dios.get('https://www.jzhangluo.com/v1/user_info');
+          await dios.get('https://www.jzhangluo.com/v1/user_info');
       if (response.data['code'] == 200) {
-        Global.profile = User(response.data['msg']['uid'],
+        Global.profile.value = User(response.data['msg']['uid'],
             response.data['msg']['username'], response.data['msg']['email']);
       } else {
         Toast("登录已过期", response.data['msg']);
@@ -77,5 +77,4 @@ class Global {
       Toast("请检查网络连接", e.toString());
     }
   }
-
 }

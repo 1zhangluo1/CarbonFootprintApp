@@ -57,11 +57,11 @@ class _PageState extends State<Page114> {
                                         CrossAxisAlignment.start,
                                     children: [
                                       Text(
-                                        Global.profile.username,
+                                        Global.profile.value.username,
                                         textScaleFactor: 1.2,
                                       ),
                                       Text(
-                                        Global.profile.email,
+                                        Global.profile.value.email,
                                         textScaleFactor: 1.2,
                                       ),
                                     ],

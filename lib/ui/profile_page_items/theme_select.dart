@@ -26,7 +26,7 @@ class _ThemeState extends State<ThemeSelect> {
     return Scaffold(
         backgroundColor: Theme.of(context).colorScheme.background,
         appBar: AppBar(
-          title: const Text("主题选择"),
+          title: Text("主题选择".tr),
           backgroundColor: Theme.of(context).colorScheme.background,
         ),
         body: SingleChildScrollView(

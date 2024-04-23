@@ -143,7 +143,7 @@ class _LoginPageState extends State<LoginPage> {
                               if ((_formKey.currentState as FormState)
                                   .validate()) {
                                 executeLogin(_usernameController.text,
-                                    _passwordController.text);
+                                    _passwordController.text, context);
                                 rememberPassword();
                               }
                             },
@@ -214,7 +214,8 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
-  Future<void> executeLogin(String account, String password) async {
+  Future<void> executeLogin(
+      String account, String password, BuildContext context) async {
     Get.dialog(
       result,
       useSafeArea: false,
@@ -230,20 +231,20 @@ class _LoginPageState extends State<LoginPage> {
           await dios.post('https://www.jzhangluo.com/v1/login', data: formData);
       if (response.data['code'] == 200) {
         initUser(response.data['token']);
-        Get.back();
         final snackBar = SnackBar(
-          content: Text('登录成功,即将返回'.tr),
+          content: Text('登录成功,返回主页'.tr),
           duration: const Duration(seconds: 1),
         );
         ScaffoldMessenger.of(context).showSnackBar(snackBar);
+        Navigator.of(context).pop();
+        Get.back();
+      } else {
+        Navigator.of(context).pop();
+        Toast(response.data['msg'], "请检查输入后，重新尝试");
       }
     } on Exception catch (e) {
-      Get.back();
       Toast('请检查网络连接', e.toString());
-    } finally {
-      Future.delayed(Duration(seconds: 2), () {
-        Get.back();
-      });
+      Navigator.of(context).pop();
     }
   }
 
@@ -256,7 +257,7 @@ class _LoginPageState extends State<LoginPage> {
       dio.Response response =
           await dios.get('https://www.jzhangluo.com/v1/user_info');
       if (response.data['code'] == 200) {
-        Global.profile = User(response.data['msg']['uid'],
+        Global.profile.value = User(response.data['msg']['uid'],
             response.data['msg']['username'], response.data['msg']['email']);
         SharedPreferences pref = await SharedPreferences.getInstance();
         await pref.setString("token", token);
