@@ -1,5 +1,4 @@
 import 'dart:ui';
-
 import 'package:carbon_foot_print/models/items.dart';
 import 'package:event_bus/event_bus.dart';
 import 'package:flutter/material.dart';

@@ -1,6 +1,6 @@
 import 'package:carbon_foot_print/Utils/TimerFormat.dart';
 import 'package:carbon_foot_print/common/Global.dart';
-import 'package:carbon_foot_print/models//Record.dart';
+import 'package:carbon_foot_print/models/Record.dart';
 import 'package:dio/dio.dart' as dios;
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart' as old;

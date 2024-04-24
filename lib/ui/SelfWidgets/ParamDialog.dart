@@ -49,14 +49,19 @@ class ParamDialog extends StatelessWidget {
       actions: [
         TextButton(
             onPressed: () {
-              Get.back();
+              Navigator.of(context).pop();
             },
-            child: const Text("返回")),
+            child: Text("返回".tr)),
         TextButton(
             onPressed: () => Global.isLogin.value
                 ? SaveCalculateResult(item, context)
-                : Toast("请先登录", "当前还未登录"),
-            child: const Text("保存")),
+                : old.Fluttertoast.showToast(
+                    msg: '请先登录'.tr,
+                    fontSize: 17,
+                    gravity: old.ToastGravity.SNACKBAR,
+                    backgroundColor: Colors.white54,
+                    textColor: Colors.black),
+            child: Text("保存".tr)),
       ],
     );
   }
