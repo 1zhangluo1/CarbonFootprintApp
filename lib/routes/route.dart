@@ -1,3 +1,5 @@
+import 'package:carbon_foot_print/Utils/CloseKeyBoard.dart';
+import 'package:carbon_foot_print/common/Global.dart';
 import 'package:carbon_foot_print/ui/home.dart';
 import 'package:carbon_foot_print/ui/login/login.dart';
 import 'package:carbon_foot_print/ui/login/register.dart';
@@ -30,11 +32,13 @@ class AppRoute {
   static List<GetPage> routes = [
     GetPage(
         name: loginPage,
-        page: () => const LoginPage(enterAfterSuccess: true),
+        page: () => const LoginPage(),
+        binding: DetailBinding(focusNode: Global.focusNode_ai),
         transition: Transition.cupertino),
     GetPage(
         name: registerPage,
         page: () => const Register(),
+        binding: DetailBinding(focusNode: Global.focusNode_ai),
         transition: Transition.cupertino),
     GetPage(
         name: homePage,
@@ -43,30 +47,37 @@ class AppRoute {
     GetPage(
         name: detail_profile,
         page: () => const Profile(),
+        binding: DetailBinding(focusNode: Global.focusNode_ai),
         transition: Transition.cupertino),
     GetPage(
         name: change_password,
         page: () => const ChangePass(),
+        binding: DetailBinding(focusNode: Global.focusNode_ai),
         transition: Transition.cupertino),
     GetPage(
         name: history,
         page: () => const History(),
+        binding: DetailBinding(focusNode: Global.focusNode_ai),
         transition: Transition.cupertino),
     GetPage(
         name: theme_select,
         page: () => const ThemeSelect(),
+        binding: DetailBinding(focusNode: Global.focusNode_ai),
         transition: Transition.cupertino),
     GetPage(
         name: language_select,
         page: () => const Language(),
+        binding: DetailBinding(focusNode: Global.focusNode_ai),
         transition: Transition.cupertino),
     GetPage(
         name: praise_author,
         page: () => const Praise(text: "张洛"),
+        binding: DetailBinding(focusNode: Global.focusNode_ai),
         transition: Transition.cupertino),
     GetPage(
         name: about_our_app,
         page: () => const Information(),
+        binding: DetailBinding(focusNode: Global.focusNode_ai),
         transition: Transition.cupertino),
   ];
 }

@@ -1,7 +1,9 @@
+import 'dart:async';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:carbon_foot_print/common/Global.dart';
 import 'package:carbon_foot_print/ui/SelfWidgets/Toast.dart';
 import 'package:dio/dio.dart' as dios;
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart' as old;
 import 'package:get/get.dart';
@@ -17,29 +19,25 @@ class AiChat extends StatefulWidget {
   _AiState createState() => _AiState();
 }
 
-class _AiState extends State<AiChat> {
-  String aa = '你好';
-  String space = ' ';
-  List<String> answers = ['您好，有什么问题都可以问我哦'].obs;
+class _AiState extends State<AiChat> with AutomaticKeepAliveClientMixin {
+  List<String> answers = ['您好，有什么问题都可以问我哦'.tr].obs;
   RxList questions = [].obs;
   RxBool isSending = false.obs;
 
   @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
+    super.build(context);
     TextEditingController inputContent = TextEditingController();
-    final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-    final FocusNode _focusNode = FocusNode();
+    final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
     return Scaffold(
+      appBar: AppBar(
+        title: Text('AI聊天'.tr),
+      ),
       body: GestureDetector(
         onTap: () {
-          if (_focusNode.hasFocus) {
-            _focusNode.unfocus();
+          if (Global.focusNode_ai.hasFocus) {
+            Global.focusNode_ai.unfocus();
           }
         },
         child: Column(
@@ -85,7 +83,7 @@ class _AiState extends State<AiChat> {
                     },
                     separatorBuilder: (context, index) {
                       return const SizedBox(
-                        height: 7,
+                        height: 10,
                       );
                     },
                     itemCount:
@@ -96,9 +94,10 @@ class _AiState extends State<AiChat> {
               padding: const EdgeInsets.all(10.0),
               child: Obx(
                 () => Form(
-                  key: _formKey,
+                  autovalidateMode: AutovalidateMode.disabled,
+                  key: formKey,
                   child: TextFormField(
-                    focusNode: _focusNode,
+                    focusNode: Global.focusNode_ai,
                     controller: inputContent,
                     readOnly: isSending.value ? true : false,
                     decoration: InputDecoration(
@@ -116,7 +115,7 @@ class _AiState extends State<AiChat> {
                               ))
                           : IconButton(
                               onPressed: () async {
-                                if (!_formKey.currentState!.validate()) {
+                                if (!formKey.currentState!.validate()) {
                                   return;
                                 }
                                 if (!Global.isLogin.value) {
@@ -124,6 +123,7 @@ class _AiState extends State<AiChat> {
                                   return;
                                 }
                                 isSending.value = true;
+                                if (Global.focusNode_ai.hasFocus) Global.focusNode_ai.unfocus();
                                 questions.add(" ");
                                 questions.add(inputContent.text.toString());
                                 await chat(inputContent.text);
@@ -137,6 +137,22 @@ class _AiState extends State<AiChat> {
                     ),
                     validator: (v) {
                       return v!.isEmpty ? '内容不能为空' : null;
+                    },
+                    onEditingComplete: () async {
+                      if (!formKey.currentState!.validate()) {
+                        return;
+                      }
+                      if (!Global.isLogin.value) {
+                        Toast('请先登录', '登录后方可使用此功能');
+                        return;
+                      }
+                      isSending.value = true;
+                      questions.add(" ");
+                      questions.add(inputContent.text.toString());
+                      await chat(inputContent.text);
+                      inputContent.text = "";
+                      isSending.value = false;
+                      if (Global.focusNode_ai.hasFocus) Global.focusNode_ai.unfocus();
                     },
                   ),
                 ),
@@ -176,6 +192,11 @@ class _AiState extends State<AiChat> {
           msg: e.toString(),
           textColor: Colors.black,
           backgroundColor: Colors.white70);
+      answers.add(" ");
+      answers.add(e.toString());
     }
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }

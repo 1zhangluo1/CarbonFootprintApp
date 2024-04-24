@@ -1,3 +1,4 @@
+import 'package:carbon_foot_print/Utils/CloseKeyBoard.dart';
 import 'package:carbon_foot_print/common/Global.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -171,6 +172,8 @@ class _PageState extends State<Page114> {
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(40))),
                             onPressed: () async {
+                              closeKeyboard(Global.focusNode_ai);
+                              closeKeyboard(Global.focusNode_cal);
                               Global.isLogin.value
                                   ? Get.dialog(
                                       alertDialog,

@@ -11,9 +11,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:carbon_foot_print/gen/assets.gen.dart';
 
 class LoginPage extends StatefulWidget {
-  const LoginPage({super.key, required this.enterAfterSuccess});
-
-  final bool enterAfterSuccess;
+  const LoginPage({super.key,});
 
   @override
   State<LoginPage> createState() => _LoginPageState();

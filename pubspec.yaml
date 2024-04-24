@@ -44,6 +44,9 @@ dependencies:
   auto_size_text: ^3.0.0
   fluttertoast: ^8.2.5
   intl: ^0.19.0
+  flutter_keyboard_visibility: ^5.3.0
+  flutter_swiper_null_safety: ^1.0.2
+
 
 
 dev_dependencies:
@@ -107,6 +110,10 @@ flutter:
     - family: logoIcon  #指定一个字体名
       fonts:
         - asset: fonts/logo字体.ttf
+
+    - family: titleIcon  #指定一个字体名
+      fonts:
+        - asset: fonts/标题.otf
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
 

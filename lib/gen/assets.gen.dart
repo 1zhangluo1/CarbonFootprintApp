@@ -40,6 +40,18 @@ class $ImagesGen {
   /// File path: images/air.png
   AssetGenImage get air => const AssetGenImage('images/air.png');
 
+  /// File path: images/banner1.jpg
+  AssetGenImage get banner1 => const AssetGenImage('images/banner1.jpg');
+
+  /// File path: images/banner2.webp
+  AssetGenImage get banner2 => const AssetGenImage('images/banner2.webp');
+
+  /// File path: images/banner3.jpg
+  AssetGenImage get banner3 => const AssetGenImage('images/banner3.jpg');
+
+  /// File path: images/banner4.jpg
+  AssetGenImage get banner4 => const AssetGenImage('images/banner4.jpg');
+
   /// File path: images/beef.png
   AssetGenImage get beef => const AssetGenImage('images/beef.png');
 
@@ -165,6 +177,10 @@ class $ImagesGen {
         mediumcar,
         tee,
         air,
+        banner1,
+        banner2,
+        banner3,
+        banner4,
         beef,
         beer,
         building,

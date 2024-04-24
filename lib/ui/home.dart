@@ -22,7 +22,7 @@ class _MainStruct extends State<MainStruct> {
     return Scaffold(
         backgroundColor: Theme.of(context).colorScheme.background,
         body: PageView(
-          physics: const PageScrollPhysics(),
+          physics: const NeverScrollableScrollPhysics(),
           onPageChanged: (index) {
             setState(() {
               selected = index;
@@ -32,7 +32,7 @@ class _MainStruct extends State<MainStruct> {
           children: const [
             Page111(text: "碳足迹计算器"),
             AiChat(),
-            Page113(text: "分析"),
+            Analyze(),
             Page114()
           ],
         ),

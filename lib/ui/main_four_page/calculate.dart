@@ -1,10 +1,11 @@
-import 'package:carbon_foot_print/common/EventBus.dart';
 import 'package:carbon_foot_print/gen/assets.gen.dart';
+import 'package:carbon_foot_print/ui/SelfWidgets/KeepAliveWrapper.dart';
 import 'package:carbon_foot_print/ui/SelfWidgets/calculate_class_items.dart';
 import 'package:carbon_foot_print/ui/SelfWidgets/calculate_items.dart';
-import 'package:carbon_foot_print/ui/SelfWidgets/execute_calculate.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:flutter/widgets.dart';
+import '../../common/Global.dart';
 import '../../models/items.dart';
 
 class Page111 extends StatefulWidget {
@@ -16,7 +17,8 @@ class Page111 extends StatefulWidget {
   _PageState createState() => _PageState();
 }
 
-class _PageState extends State<Page111> {
+class _PageState extends State<Page111>
+    with AutomaticKeepAliveClientMixin, SingleTickerProviderStateMixin {
   final List tabs = ['衣', '食', '住', '行', '用'];
 
   final List<Items> clothes = [
@@ -493,53 +495,48 @@ class _PageState extends State<Page111> {
   ];
 
   @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-        length: tabs.length,
-        child: Scaffold(
-            resizeToAvoidBottomInset: true,
-            backgroundColor: Theme.of(context).colorScheme.background,
-            appBar: AppBar(
-              title: Text(widget.text),
-              toolbarHeight: 40,
-              bottom: TabBar(
-                tabs: tabs
-                    .map((e) => Tab(
-                          text: e,
-                        ))
-                    .toList(),
+    super.build(context);
+    return GestureDetector(
+      onTap: () {
+        if (Global.focusNode_cal.hasFocus) Global.focusNode_cal.unfocus();
+      },
+      child: DefaultTabController(
+          length: tabs.length,
+          child: Scaffold(
+              resizeToAvoidBottomInset: true,
+              backgroundColor: Theme.of(context).colorScheme.background,
+              appBar: AppBar(
+                title: Text(widget.text),
+                toolbarHeight: 40,
+                bottom: TabBar(
+                  tabs: tabs
+                      .map((e) => Tab(
+                            text: e,
+                          ))
+                      .toList(),
+                ),
               ),
-            ),
-            body: SingleChildScrollView(
-              child: Column(
-                children: [
-                  Align(
-                      alignment: Alignment.topLeft,
-                      child: Container(
-                        height: 900,
-                        child: TabBarView(
-                          physics: const NeverScrollableScrollPhysics(),
-                          children: [
-                            CalculateClass(contents: clothes),
-                            CalculateClass(contents: food),
-                            CalculateClass(contents: live),
-                            CalculateClass(contents: traffic),
-                            CalculateClass(contents: lifeConsume),
-                          ],
-                        ),
-                      )),
-                ],
-              ),
-            )));
+              body: SingleChildScrollView(
+                child: Align(
+                  alignment: Alignment.topLeft,
+                  child: SizedBox(
+                    height: 900,
+                    child: TabBarView(
+                      children: [
+                        CalculateClass(contents: clothes),
+                        CalculateClass(contents: food),
+                        CalculateClass(contents: live),
+                        CalculateClass(contents: traffic),
+                        CalculateClass(contents: lifeConsume),
+                      ],
+                    ),
+                  ),
+                ),
+              ))),
+    );
   }
 
   @override
-  void dispose() {
-    super.dispose();
-  }
+  bool get wantKeepAlive => true;
 }

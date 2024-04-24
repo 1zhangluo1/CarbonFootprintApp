@@ -19,6 +19,10 @@ class Global {
 
   static Rx<User> profile = User(0, "", "").obs;
 
+  static FocusNode focusNode_ai = FocusNode();
+
+  static FocusNode focusNode_cal = FocusNode();
+
   static Future init() async {
     WidgetsFlutterBinding.ensureInitialized();
     final prefs = await SharedPreferences.getInstance();

@@ -1,4 +1,5 @@
 import 'package:carbon_foot_print/common/EventBus.dart';
+import 'package:carbon_foot_print/common/Global.dart';
 import 'package:carbon_foot_print/gen/assets.gen.dart';
 import 'package:carbon_foot_print/ui/SelfWidgets/execute_calculate.dart';
 import 'package:flutter/material.dart';

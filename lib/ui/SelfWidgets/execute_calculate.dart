@@ -2,6 +2,7 @@ import 'package:carbon_foot_print/common/Global.dart';
 import 'package:carbon_foot_print/models/items.dart';
 import 'package:carbon_foot_print/ui/SelfWidgets/ParamDialog.dart';
 import 'package:carbon_foot_print/ui/SelfWidgets/Toast.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -50,6 +51,7 @@ class _ExcuteState extends State<Execute> {
                   key: format,
                   autovalidateMode: AutovalidateMode.disabled,
                   child: TextFormField(
+                    focusNode: Global.focusNode_cal,
                     style: const TextStyle(fontSize: 18),
                     textAlign: TextAlign.center,
                     keyboardType: TextInputType.number,
