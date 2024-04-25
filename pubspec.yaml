@@ -46,6 +46,8 @@ dependencies:
   intl: ^0.19.0
   flutter_keyboard_visibility: ^5.3.0
   flutter_swiper_null_safety: ^1.0.2
+  fl_chart: ^0.35.0
+  flutter_echart: ^2.0.0
 
 
 

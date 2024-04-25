@@ -12,6 +12,29 @@ class Global {
   // 是否为release版
   static bool get isRelease => const bool.fromEnvironment("dart.vm.product");
 
+  static final List<Color> coolColors = [
+    Colors.blueAccent,
+    Colors.cyanAccent,
+    Colors.tealAccent,
+    Colors.lightBlue,
+    Colors.lightGreen,
+    Colors.purpleAccent,
+    Colors.pinkAccent,
+    Colors.lightBlueAccent,
+  ];
+  static final List<Color> warmColors = [
+    Colors.redAccent,
+    Colors.orange,
+    Colors.amber,
+    Colors.yellow,
+    Colors.pink,
+    Colors.red,
+    Colors.deepOrange,
+    Colors.orangeAccent,
+    Colors.deepOrangeAccent,
+    Colors.amberAccent,
+  ];
+
   //登录状态
   static RxBool isLogin = false.obs;
 

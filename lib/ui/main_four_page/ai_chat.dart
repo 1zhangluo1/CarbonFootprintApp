@@ -55,7 +55,7 @@ class _AiState extends State<AiChat> with AutomaticKeepAliveClientMixin {
                           ? Align(
                               alignment: Alignment.centerLeft,
                               child: Padding(
-                                padding: const EdgeInsets.only(left: 7.0),
+                                padding: const EdgeInsets.symmetric(horizontal:  7.0),
                                 child: Card(
                                     child: Padding(
                                   padding: const EdgeInsets.all(15.0),
