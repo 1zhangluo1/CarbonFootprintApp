@@ -48,6 +48,8 @@ dependencies:
   flutter_swiper_null_safety: ^1.0.2
   fl_chart: ^0.35.0
   flutter_echart: ^2.0.0
+  charts_painter: ^3.1.1
+  flutter_chart: ^0.1.6
 
 
 

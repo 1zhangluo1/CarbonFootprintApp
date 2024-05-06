@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:carbon_foot_print/models/User.dart';
 import 'package:carbon_foot_print/ui/SelfWidgets/Toast.dart';
 import 'package:dio/dio.dart' as dio;
@@ -40,6 +42,8 @@ class Global {
 
   static Color themeColor = Colors.green;
 
+  static Locale defaultLocale = Locale('zh','CN');
+
   static Rx<User> profile = User(0, "", "").obs;
 
   static FocusNode focusNode_ai = FocusNode();
@@ -50,11 +54,14 @@ class Global {
     WidgetsFlutterBinding.ensureInitialized();
     final prefs = await SharedPreferences.getInstance();
     int colorId = prefs.getInt("themeId") ?? 0;
+    int languageId = prefs.getInt('language') ?? 1;
     if (colorId != 7)
       Global.themeColor = getColorById(colorId);
     else if (colorId == 7) {
       Get.changeTheme(ThemeData.dark());
     }
+    Global.defaultLocale = getLanguageType(languageId);
+    Get.updateLocale(defaultLocale);
     isLogin.value = prefs.getBool("isLogin") ?? false;
     String token = prefs.getString("token") ?? "";
     if (token != "") {
@@ -80,6 +87,16 @@ class Global {
         return Colors.purple;
     }
     return Colors.green;
+  }
+
+  static Locale getLanguageType(int id) {
+    switch (id) {
+      case 1:
+        return Locale('zh','CN');
+      case 2:
+        return Locale('en','US');
+    }
+    return Locale('zh','CN');
   }
 
   static Future<void> InitUser(String token, SharedPreferences pref) async {

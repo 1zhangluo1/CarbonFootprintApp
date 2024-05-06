@@ -12,4 +12,7 @@ class FontFamily {
 
   /// Font family: logoIcon
   static const String logoIcon = 'logoIcon';
+
+  /// Font family: titleIcon
+  static const String titleIcon = 'titleIcon';
 }

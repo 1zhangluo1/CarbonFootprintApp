@@ -76,6 +76,8 @@ class $ImagesGen {
   /// File path: images/chicken.png
   AssetGenImage get chicken => const AssetGenImage('images/chicken.png');
 
+  AssetGenImage get chinese => const AssetGenImage('images/chinese.png');
+
   /// File path: images/chopsticks.png
   AssetGenImage get chopsticks => const AssetGenImage('images/chopsticks.png');
 
@@ -163,11 +165,13 @@ class $ImagesGen {
   /// File path: images/train.png
   AssetGenImage get train => const AssetGenImage('images/train.png');
 
+  AssetGenImage get us => const AssetGenImage('images/us.png');
+
   /// File path: images/water.png
   AssetGenImage get water => const AssetGenImage('images/water.png');
 
   /// List of all assets
-  List<AssetGenImage> get values => [
+  List<dynamic> get values => [
         alcohol,
         beans,
         cauliflower,
@@ -189,6 +193,7 @@ class $ImagesGen {
         car,
         carbon,
         chicken,
+        chinese,
         chopsticks,
         clothing,
         coal,
@@ -218,6 +223,7 @@ class $ImagesGen {
         tofu,
         tomato,
         train,
+        us,
         water
       ];
 }

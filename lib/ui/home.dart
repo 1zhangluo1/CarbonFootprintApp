@@ -1,4 +1,3 @@
-import 'package:carbon_foot_print/common/Global.dart';
 import 'package:carbon_foot_print/ui/main_four_page/ai_chat.dart';
 import 'package:carbon_foot_print/ui/main_four_page/analyze_chart.dart';
 import 'package:carbon_foot_print/ui/main_four_page/calculate.dart';
@@ -30,7 +29,7 @@ class _MainStruct extends State<MainStruct> {
           },
           controller: pageController,
           children: const [
-            Page111(text: "碳足迹计算器"),
+            Calculate(),
             AiChat(),
             Analyze(),
             Page114()
@@ -40,24 +39,24 @@ class _MainStruct extends State<MainStruct> {
           child: BottomNavigationBar(
             items: [
               BottomNavigationBarItem(
-                icon: Icon(Icons.calculate_outlined),
-                label: "计算",
-                tooltip: "计算",
+                icon: const Icon(Icons.calculate_outlined),
+                label: "计算".tr,
+                tooltip: "计算".tr,
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.chat_outlined),
-                label: "C知道",
-                tooltip: "AI",
+                icon: const Icon(Icons.chat_outlined),
+                label: "C知道".tr,
+                tooltip: "AI".tr,
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.query_stats),
-                label: "分析",
-                tooltip: "分析报告",
+                icon: const Icon(Icons.query_stats),
+                label: "分析".tr,
+                tooltip: "分析报告".tr,
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.person_outlined),
-                label: "我的",
-                tooltip: "我的",
+                icon: const Icon(Icons.person_outlined),
+                label: "我的".tr,
+                tooltip: "我的".tr,
               ),
             ],
             onTap: (index) {

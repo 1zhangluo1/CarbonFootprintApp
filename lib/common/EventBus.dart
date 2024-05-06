@@ -6,9 +6,10 @@ import 'package:flutter/material.dart';
 EventBus eventBus = EventBus();
 
 class SelectedItem {
-  const SelectedItem(this.item);
+  const SelectedItem(this.item, this.index);
 
   final Item item;
+  final int index;
 }
 
 class SelectThemes {

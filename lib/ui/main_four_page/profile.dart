@@ -1,5 +1,6 @@
 import 'package:carbon_foot_print/Utils/CloseKeyBoard.dart';
 import 'package:carbon_foot_print/common/Global.dart';
+import 'package:carbon_foot_print/ui/profile_page_items/change_password.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -25,9 +26,8 @@ class _PageState extends State<Page114> {
         backgroundColor: Theme.of(context).colorScheme.background,
         title: Text("个人主页".tr),
       ),
-      body: Center(
-        child: ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: 400),
+      body: SingleChildScrollView(
+        child: Center(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -87,17 +87,7 @@ class _PageState extends State<Page114> {
                     children: [
                       ListTile(
                         onTap: () {
-                          Navigator.of(context)
-                              .pushNamed(AppRoute.detail_profile);
-                        },
-                        leading: const Icon(Icons.person),
-                        title: Text("个人信息".tr),
-                        trailing: const Icon(Icons.arrow_forward_ios_outlined),
-                      ),
-                      ListTile(
-                        onTap: () {
-                          Navigator.of(context)
-                              .pushNamed(AppRoute.change_password);
+                          Get.dialog(ChangePassDialog());
                         },
                         leading: const Icon(Icons.border_color),
                         // Icon for "评教"

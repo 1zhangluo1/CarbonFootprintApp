@@ -2,6 +2,7 @@ class Item {
   final String name;
   final String imagePath;
   final String type;
+  final String classes;
   Function(double) calculate;
   late double result;
   late double tree;
@@ -11,6 +12,7 @@ class Item {
     this.name,
     this.imagePath,
     this.type,
+    this.classes,
     this.calculate,
   ) {
     result = 0;

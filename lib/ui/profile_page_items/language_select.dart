@@ -1,13 +1,9 @@
-import 'dart:convert';
-import 'package:carbon_foot_print/models/Record.dart';
-import 'package:carbon_foot_print/models/ai_request/ai_request.dart';
-import 'package:carbon_foot_print/models/ai_response/ai_response.dart';
-import 'package:dio/dio.dart' as dios;
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:get/get.dart';
+import 'package:carbon_foot_print/common/Global.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../gen/assets.gen.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class Language extends StatefulWidget {
   const Language({
@@ -19,28 +15,63 @@ class Language extends StatefulWidget {
 }
 
 class _PageState extends State<Language> {
+  
+  RxInt selectId = 1.obs;
+
+  @override
+  void initState() {
+    getId();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          ElevatedButton(
-              onPressed: () {
-                Get.updateLocale(Locale('en', 'US'));
-              },
-              child: Text("翻译1")),
-          ElevatedButton(
-              onPressed: () {
-                Get.updateLocale(Locale('en', 'CH'));
-              },
-              child: Text("翻译2")),
-          ElevatedButton(
-              onPressed: () {
-              },
-              child: Text("test")),
-        ],
-      ),
-    );
+        backgroundColor: Theme.of(context).colorScheme.background,
+        appBar: AppBar(
+          title: Text("语言选择".tr),
+          backgroundColor: Theme.of(context).colorScheme.background,
+        ),
+        body: SingleChildScrollView(child: Obx(() {
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              ListTile(
+                onTap: () {
+                  changeId(Locale('zh','CN'), 1);
+                },
+                leading: Image(image: AssetImage(Assets.images.chinese.path),fit: BoxFit.contain,width: 45,),
+                title: const Text(
+                  "中文",
+                  textScaleFactor: 1.2,
+                ),
+                trailing: selectId == 1 ? const Icon(Icons.check) : null,
+              ),
+              ListTile(
+                onTap: () {
+                  changeId(Locale('en','US'), 2);
+                },
+                leading: Image(image: AssetImage(Assets.images.us.path),fit: BoxFit.contain,width: 45,),
+                title: const Text(
+                  "英语",
+                  textScaleFactor: 1.2,
+                ),
+                trailing: selectId == 2 ? const Icon(Icons.check) : null,
+              ),
+            ],
+          );
+        })));
+  }
+
+  void changeId(Locale locale, int id) async {
+    Get.updateLocale(locale);
+    selectId.value = id;
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    pref.setInt('language', id);
+  }
+  
+  void getId() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    selectId.value = pref.getInt('language') ?? 1;
   }
 }

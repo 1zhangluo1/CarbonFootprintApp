@@ -9,9 +9,11 @@ class Items extends StatefulWidget {
   const Items({
     super.key,
     required this.item,
+    required this.index,
   });
 
   final Item item;
+  final int index;
 
   @override
   _Item createState() => _Item();
@@ -44,7 +46,7 @@ class _Item extends State<Items> {
           ],
         ),
         onTap: () {
-          eventBus.fire(SelectedItem(widget.item));
+          eventBus.fire(SelectedItem(widget.item,widget.index));
         },
       ),
     );

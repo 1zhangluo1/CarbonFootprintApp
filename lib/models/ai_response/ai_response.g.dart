@@ -9,7 +9,7 @@ part of 'ai_response.dart';
 AiResponse _$AiResponseFromJson(Map<String, dynamic> json) => AiResponse(
       id: json['id'] as String? ?? '',
       object: json['object'] as String? ?? '',
-      created: json['created'] as int? ?? 0,
+      created: (json['created'] as num?)?.toInt() ?? 0,
       model: json['model'] as String? ?? '',
       systemFingerprint: json['system_fingerprint'] as String? ?? '',
       choices: (json['choices'] as List<dynamic>?)
@@ -43,7 +43,7 @@ Map<String, dynamic> _$MessageToJson(Message instance) => <String, dynamic>{
     };
 
 Choices _$ChoicesFromJson(Map<String, dynamic> json) => Choices(
-      index: json['index'] as int? ?? 0,
+      index: (json['index'] as num?)?.toInt() ?? 0,
       message: json['message'] == null
           ? Message.emptyInstance()
           : Message.fromJson(json['message'] as Map<String, dynamic>),
@@ -59,9 +59,9 @@ Map<String, dynamic> _$ChoicesToJson(Choices instance) => <String, dynamic>{
     };
 
 Usage _$UsageFromJson(Map<String, dynamic> json) => Usage(
-      promptTokens: json['prompt_tokens'] as int? ?? 0,
-      completionTokens: json['completion_tokens'] as int? ?? 0,
-      totalTokens: json['total_tokens'] as int? ?? 0,
+      promptTokens: (json['prompt_tokens'] as num?)?.toInt() ?? 0,
+      completionTokens: (json['completion_tokens'] as num?)?.toInt() ?? 0,
+      totalTokens: (json['total_tokens'] as num?)?.toInt() ?? 0,
     );
 
 Map<String, dynamic> _$UsageToJson(Usage instance) => <String, dynamic>{

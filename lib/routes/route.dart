@@ -3,7 +3,6 @@ import 'package:carbon_foot_print/common/Global.dart';
 import 'package:carbon_foot_print/ui/home.dart';
 import 'package:carbon_foot_print/ui/login/login.dart';
 import 'package:carbon_foot_print/ui/login/register.dart';
-import 'package:carbon_foot_print/ui/profile_page_items/change_password.dart';
 import 'package:carbon_foot_print/ui/profile_page_items/detaill_profile.dart';
 import 'package:carbon_foot_print/ui/profile_page_items/history_result.dart';
 import 'package:carbon_foot_print/ui/profile_page_items/information_of_this_app.dart';
@@ -21,8 +20,6 @@ class AppRoute {
   static const String loginPage = "/loginPage";
   static const String registerPage = "/registerPage";
   static const String homePage = "/";
-  static const String detail_profile = "/detail_profile";
-  static const String change_password = "/change_password";
   static const String history = "/history";
   static const String theme_select = "/theme_select";
   static const String language_select = "/language_select";
@@ -43,16 +40,6 @@ class AppRoute {
     GetPage(
         name: homePage,
         page: () => const MainStruct(),
-        transition: Transition.cupertino),
-    GetPage(
-        name: detail_profile,
-        page: () => const Profile(),
-        binding: DetailBinding(focusNode: Global.focusNode_ai),
-        transition: Transition.cupertino),
-    GetPage(
-        name: change_password,
-        page: () => const ChangePass(),
-        binding: DetailBinding(focusNode: Global.focusNode_ai),
         transition: Transition.cupertino),
     GetPage(
         name: history,

@@ -1,55 +1,56 @@
-import 'package:carbon_foot_print/common/EventBus.dart';
-import 'package:carbon_foot_print/common/Global.dart';
-import 'package:carbon_foot_print/gen/assets.gen.dart';
+import 'package:carbon_foot_print/models/items.dart';
+import 'package:carbon_foot_print/ui/SelfWidgets/DashLine.dart';
 import 'package:carbon_foot_print/ui/SelfWidgets/execute_calculate.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import '../../models/items.dart';
+import 'package:get/get.dart';
+import 'package:get/get_state_manager/get_state_manager.dart';
+import '../../common/EventBus.dart';
+import '../../gen/assets.gen.dart';
 import 'calculate_items.dart';
 
 class CalculateClass extends StatefulWidget {
   const CalculateClass({
     super.key,
     required this.contents,
+    required this.index,
   });
 
   final List<Items> contents;
+  final int index;
 
   @override
   _CalculateState createState() => _CalculateState();
 }
 
-class _CalculateState extends State<CalculateClass> {
-  ValueNotifier<Item> isShowItem =
-      ValueNotifier<Item>(Item('还未选择哦', 'null', 'null', (double a) {
-    return Map<int, double>.from({
-      1: 0.0,
-      2: 0.0,
-    });
-  }));
+class _CalculateState extends State<CalculateClass>
+    with AutomaticKeepAliveClientMixin {
+  final Rx<Item> item = Item('', '', '', '',(p0) => null).obs;
+  RxInt check_index = 20.obs;
 
   var Events;
 
   @override
   void initState() {
     Events = eventBus.on<SelectedItem>().listen((event) {
-      isShowItem.value = event.item;
+      item.value = event.item;
+      check_index.value = event.index;
     });
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    final width = size.width;
+    super.build(context);
     List<Widget> widgetList = widget.contents.map((e) => e as Widget).toList();
-    return ConstrainedBox(
-      constraints: const BoxConstraints(
-        maxWidth: 400,
-        maxHeight: 800,
-      ),
+    return SingleChildScrollView(
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Container(
-            margin: const EdgeInsets.all(20),
-            width: double.infinity,
+          Padding(
+            padding: const EdgeInsets.all(18.0),
             child: Wrap(
               spacing: 35,
               runSpacing: 15,
@@ -57,47 +58,59 @@ class _CalculateState extends State<CalculateClass> {
               children: widgetList,
             ),
           ),
-          const Divider(
-            thickness: 1,
-            height: 0,
-            color: Colors.black,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Align(
+                  alignment: Alignment.centerLeft,
+                  child: LDashedLine(
+                    axis: Axis.horizontal,
+                    dashedTotalLengthWith: width / 2 - 20,
+                    dashedWidth: 10,
+                  )),
+              Text('End'),
+              Align(
+                  alignment: Alignment.centerRight,
+                  child: LDashedLine(
+                    axis: Axis.horizontal,
+                    dashedTotalLengthWith: width / 2 - 20,
+                    dashedWidth: 10,
+                  )),
+            ],
           ),
-          Container(
-            height: 20,
-          ),
-          Expanded(
-            child: ValueListenableBuilder<Item>(
-              builder: (BuildContext context, Item value, Widget? child) {
-                if (value.name == "还未选择哦") {
-                  return Column(
-                    children: [
-                      Image(
-                        image: AssetImage(Assets.images.noselected.path),
-                        width: 80,
+          Obx(() {
+            return check_index == widget.index
+                ? Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: Execute(
+                      item: item.value,
+                    ),
+                )
+                : Padding(
+                    padding: const EdgeInsets.only(top: 30.0),
+                    child: Align(
+                      alignment: Alignment.center,
+                      child: Column(
+                        children: [
+                          Image(
+                            image: AssetImage(Assets.images.noselected.path),
+                            width: 80,
+                          ),
+                          const Padding(padding: EdgeInsets.all(10)),
+                          const Text(
+                            "还未选择要计算的产品哦!!!",
+                            textScaleFactor: 1.5,
+                          ),
+                        ],
                       ),
-                      const Padding(padding: EdgeInsets.all(10)),
-                      const Text(
-                        "还未选择要计算的产品哦!!!",
-                        textScaleFactor: 1.5,
-                      ),
-                    ],
-                  );
-                }
-                // builder 方法只会在 _counter 变化时被调用
-                else {
-                  return Container(
-                    width: double.infinity,
-                    child: Execute(
-                      item: value,
                     ),
                   );
-                }
-              },
-              valueListenable: isShowItem,
-            ),
-          )
+          }),
         ],
       ),
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }

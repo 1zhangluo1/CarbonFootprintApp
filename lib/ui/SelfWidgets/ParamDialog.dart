@@ -75,6 +75,7 @@ class ParamDialog extends StatelessWidget {
         'use_name': item.name,
         'use_counts': double.parse(item.num.toStringAsFixed(2)),
         'remedial_measure': tree,
+        'type': item.classes,
       };
       dios.Dio dio = dios.Dio();
       SharedPreferences pref = await SharedPreferences.getInstance();
