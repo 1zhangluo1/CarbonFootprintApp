@@ -97,8 +97,8 @@ class _CalculateState extends State<CalculateClass>
                             width: 80,
                           ),
                           const Padding(padding: EdgeInsets.all(10)),
-                          const Text(
-                            "还未选择要计算的产品哦!!!",
+                          Text(
+                            "还未选择要计算的产品哦!!!".tr,
                             textScaleFactor: 1.5,
                           ),
                         ],

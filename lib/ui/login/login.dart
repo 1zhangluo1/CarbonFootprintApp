@@ -67,17 +67,17 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                       TextFormField(
                         controller: _usernameController,
-                        decoration: const InputDecoration(
-                          labelText: "用户名",
-                          hintText: "输入您的邮箱",
+                        decoration: InputDecoration(
+                          labelText: "账号".tr,
+                          hintText: "输入您的邮箱".tr,
                           prefixIcon: Icon(Icons.person),
                           // helperText: '用户名',
-                          border: OutlineInputBorder(
+                          border: const OutlineInputBorder(
                               borderRadius:
                                   BorderRadius.all(Radius.circular(16))),
                         ),
                         validator: (v) {
-                          return v!.trim().isNotEmpty ? null : "账号不能为空";
+                          return v!.trim().isNotEmpty ? null : "账号不能为空".tr;
                         },
                       ),
                       const SizedBox(
@@ -87,8 +87,8 @@ class _LoginPageState extends State<LoginPage> {
                         controller: _passwordController,
                         obscureText: !_passwordVisible,
                         decoration: InputDecoration(
-                          labelText: "密码",
-                          hintText: "您的登录密码",
+                          labelText: "密码".tr,
+                          hintText: "输入您的密码".tr,
                           prefixIcon: const Icon(Icons.lock),
                           suffixIcon: IconButton(
                             icon: Icon(
@@ -110,7 +110,7 @@ class _LoginPageState extends State<LoginPage> {
                                   BorderRadius.all(Radius.circular(16))),
                         ),
                         validator: (v) {
-                          return v!.trim().isNotEmpty ? null : "密码不能为空";
+                          return v!.trim().length >= 6 ? null : "密码至少6位数".tr;
                         },
                       ),
                       Padding(
@@ -130,7 +130,7 @@ class _LoginPageState extends State<LoginPage> {
                                 },
                               ),
                             ),
-                            const Text("记住密码"),
+                            Text("记住密码".tr),
                           ],
                         ),
                       ),
@@ -241,7 +241,7 @@ class _LoginPageState extends State<LoginPage> {
         Toast(response.data['msg'], "请检查输入后，重新尝试");
       }
     } on Exception catch (e) {
-      Toast('请检查网络连接', e.toString());
+      Toast('请检查网络连接'.tr, e.toString());
       Navigator.of(context).pop();
     }
   }

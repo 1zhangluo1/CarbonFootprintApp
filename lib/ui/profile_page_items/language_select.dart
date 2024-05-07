@@ -41,8 +41,8 @@ class _PageState extends State<Language> {
                   changeId(Locale('zh','CN'), 1);
                 },
                 leading: Image(image: AssetImage(Assets.images.chinese.path),fit: BoxFit.contain,width: 45,),
-                title: const Text(
-                  "中文",
+                title: Text(
+                  "中文".tr,
                   textScaleFactor: 1.2,
                 ),
                 trailing: selectId == 1 ? const Icon(Icons.check) : null,
@@ -52,8 +52,8 @@ class _PageState extends State<Language> {
                   changeId(Locale('en','US'), 2);
                 },
                 leading: Image(image: AssetImage(Assets.images.us.path),fit: BoxFit.contain,width: 45,),
-                title: const Text(
-                  "英语",
+                title: Text(
+                  "英语".tr,
                   textScaleFactor: 1.2,
                 ),
                 trailing: selectId == 2 ? const Icon(Icons.check) : null,

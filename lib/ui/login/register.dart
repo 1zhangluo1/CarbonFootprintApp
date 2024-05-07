@@ -34,7 +34,7 @@ class _RegisterState extends State<Register> {
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Theme.of(context).colorScheme.background,
-          title: const Text("注册新账户"),
+          title: Text("注册新账户".tr),
         ),
         backgroundColor: Theme.of(context).colorScheme.background,
         body: SingleChildScrollView(
@@ -56,16 +56,16 @@ class _RegisterState extends State<Register> {
                           child: Column(children: [
                             TextFormField(
                               controller: _usernameController,
-                              decoration: const InputDecoration(
-                                labelText: "昵称",
-                                hintText: "输入您的昵称",
-                                prefixIcon: Icon(Icons.person),
-                                border: OutlineInputBorder(
+                              decoration: InputDecoration(
+                                labelText: "昵称".tr,
+                                hintText: "输入您的昵称".tr,
+                                prefixIcon: const Icon(Icons.person),
+                                border: const OutlineInputBorder(
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(16))),
                               ),
                               validator: (v) {
-                                return v!.trim().isNotEmpty ? null : "昵称不能为空";
+                                return v!.trim().isNotEmpty ? null : "昵称不能为空".tr;
                               },
                             ),
                             const SizedBox(
@@ -73,17 +73,17 @@ class _RegisterState extends State<Register> {
                             ),
                             TextFormField(
                               controller: _emailController,
-                              decoration: const InputDecoration(
-                                labelText: "邮箱",
-                                hintText: "您的邮箱",
+                              decoration: InputDecoration(
+                                labelText: "邮箱".tr,
+                                hintText: "输入您的邮箱".tr,
                                 prefixIcon: Icon(Icons.email_outlined),
                                 // helperText: '用户名',
-                                border: OutlineInputBorder(
+                                border: const OutlineInputBorder(
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(16))),
                               ),
                               validator: (v) {
-                                return v!.trim().isNotEmpty ? null : "邮箱不能为空";
+                                return v!.trim().isNotEmpty ? null : "邮箱不能为空".tr;
                               },
                             ),
                             const SizedBox(
@@ -93,8 +93,8 @@ class _RegisterState extends State<Register> {
                               controller: _passwordController,
                               obscureText: !_passwordVisible,
                               decoration: InputDecoration(
-                                labelText: "密码",
-                                hintText: "密码至少6位数",
+                                labelText: "密码".tr,
+                                hintText: "密码至少6位数".tr,
                                 prefixIcon: const Icon(Icons.lock),
                                 suffixIcon: IconButton(
                                   icon: Icon(
@@ -116,7 +116,7 @@ class _RegisterState extends State<Register> {
                                         BorderRadius.all(Radius.circular(16))),
                               ),
                               validator: (v) {
-                                return v!.trim().length >= 6 ? null : "密码至少6位";
+                                return v!.trim().length >= 6 ? null : "密码至少6位数".tr;
                               },
                             ),
                             const SizedBox(
@@ -125,19 +125,19 @@ class _RegisterState extends State<Register> {
                             TextFormField(
                               controller: _checkNumController,
                               decoration: InputDecoration(
-                                labelText: "验证码",
-                                hintText: "输入您的验证码",
+                                labelText: "验证码".tr,
+                                hintText: "输入您的验证码".tr,
                                 prefixIcon: const Icon(Icons.person),
                                 suffixIcon: IconButton(
                                   onPressed: isClickSend
                                       ? () {
-                                          Toast("发送中", "请耐心等待");
+                                          Toast("发送中".tr, "请耐心等待".tr);
                                         }
                                       : () {
                                           if (_emailController.text.isEmpty) {
-                                            Toast("请先填写邮箱", "");
+                                            Toast("请先填写邮箱".tr, "");
                                           } else if (isSendCheckNum) {
-                                            Toast("已发送验证码,请勿重复点击", "");
+                                            Toast("已发送验证码,请勿重复点击".tr, "");
                                           }
                                           if (_emailController
                                                   .text.isNotEmpty &&
@@ -151,8 +151,8 @@ class _RegisterState extends State<Register> {
                                           textScaleFactor: 1.2,
                                         )
                                       : !isClickSend
-                                          ? Text("发送验证码")
-                                          : Text("发送中"),
+                                          ? Text("发送验证码".tr)
+                                          : Text("发送中".tr),
                                 ),
                                 // helperText: '用户名',
                                 border: const OutlineInputBorder(
@@ -160,7 +160,7 @@ class _RegisterState extends State<Register> {
                                         BorderRadius.all(Radius.circular(16))),
                               ),
                               validator: (v) {
-                                return v!.trim().isNotEmpty ? null : "验证码不能为空";
+                                return v!.trim().isNotEmpty ? null : "验证码不能为空".tr;
                               },
                             ),
                             const SizedBox(
@@ -175,7 +175,7 @@ class _RegisterState extends State<Register> {
                                       register();
                                     }
                                   },
-                                  label: const Text("注册"),
+                                  label: Text("注册".tr),
                                   style: ElevatedButton.styleFrom(
                                       minimumSize:
                                           const Size(double.infinity, 50),
@@ -214,16 +214,16 @@ class _RegisterState extends State<Register> {
           startCountdown();
         });
       } else if (response.data['code'] == -1) {
-        Toast("提醒", resultMsg);
+        Toast("提醒".tr, resultMsg);
       } else if (response.data['code'] == -2) {
-        Toast("提醒", resultMsg);
+        Toast("提醒".tr, resultMsg);
       } else if (response.data['code'] == -3) {
         Toast("请规范填写邮箱", resultMsg);
       } else if (response.data['code'] == 100) {
-        Toast("提醒", resultMsg);
+        Toast("提醒".tr, resultMsg);
       }
     } catch (e) {
-      Toast("请检查网络连接", e.toString());
+      Toast("请检查网络连接".tr, e.toString());
     } finally {
       setState(() {
         isClickSend = false;

@@ -153,8 +153,11 @@ class _PageState extends State<Page114> {
                         ])),
                         trailing: const Icon(Icons.arrow_forward_ios_outlined),
                       ),
+                      const SizedBox(
+                        height: 30,
+                      ),
                       Padding(
-                        padding: const EdgeInsets.only(top: 10.0),
+                        padding: const EdgeInsets.all(10.0),
                         child: Center(
                           child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
@@ -168,7 +171,7 @@ class _PageState extends State<Page114> {
                                   ? Get.dialog(
                                       alertDialog,
                                     )
-                                  : Toast("未登录", "请先登录");
+                                  : Toast("未登录".tr, "请先登录".tr);
                             },
                             child: Text(
                               "退出登录".tr,
@@ -176,6 +179,9 @@ class _PageState extends State<Page114> {
                             ),
                           ),
                         ),
+                      ),
+                      const SizedBox(
+                        height: 10,
                       ),
                       Padding(
                         padding: const EdgeInsets.all(16.0),
@@ -215,10 +221,10 @@ class _PageState extends State<Page114> {
   }
 
   AlertDialog alertDialog = AlertDialog(
-    title: Text("温馨提示"),
+    title: Text("提醒".tr),
     content: Text(
       "您确定要退出登录吗".tr,
-      textScaleFactor: 1.1,
+      textScaleFactor: 1.2,
     ),
     actions: [
       TextButton(onPressed: () => Get.back(), child: Text("取消".tr)),

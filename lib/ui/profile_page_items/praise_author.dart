@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:carbon_foot_print/gen/assets.gen.dart';
+import 'package:get/get.dart';
 
 class Praise extends StatefulWidget {
   const Praise({
@@ -22,19 +23,27 @@ class _PraiseState extends State<Praise> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: const Text("给开发者点赞"),
+        title: Text("给开发者点赞".tr),
         backgroundColor: Colors.white,
       ),
-      body: Center(
-        child: Column(
-          children: [
-            Padding(padding: EdgeInsets.only(top: 20)),
-            Image(
-                image: AssetImage(Assets.images.payCode.path),
-              width: 300,
-              height: 300,
-            )
-          ],
+      body: SingleChildScrollView(
+        child: Center(
+          child: Column(
+            children: [
+              const Padding(padding: EdgeInsets.only(top: 20)),
+              Image(
+                  image: AssetImage(Assets.images.payCode.path),
+                width: 300,
+                height: 300,
+              ),
+              const Padding(padding: EdgeInsets.only(top: 20)),
+              Image(
+                image: AssetImage(Assets.images.vxPay.path),
+                width: 300,
+                height: 300,
+              )
+            ],
+          ),
         ),
       ),
     );

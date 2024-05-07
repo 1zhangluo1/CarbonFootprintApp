@@ -20,7 +20,7 @@ class AiChat extends StatefulWidget {
 }
 
 class _AiState extends State<AiChat> with AutomaticKeepAliveClientMixin {
-  List<String> answers = ['您好，有什么问题都可以问我哦'.tr].obs;
+  List<String> answers = ['您好，有什么问题都可以问我哦'].obs;
   RxList questions = [].obs;
   RxBool isSending = false.obs;
 
@@ -101,8 +101,8 @@ class _AiState extends State<AiChat> with AutomaticKeepAliveClientMixin {
                     controller: inputContent,
                     readOnly: isSending.value ? true : false,
                     decoration: InputDecoration(
-                      labelText: "开始你的对话吧",
-                      hintText: "请输入消息",
+                      labelText: "开始你的对话吧".tr,
+                      hintText: "请输入消息".tr,
                       suffixIcon: isSending.value
                           ? Align(
                               alignment: Alignment.centerRight,

@@ -15,7 +15,7 @@ class Calculate extends StatefulWidget {
 
 class _CalculateState extends State<Calculate>
     with AutomaticKeepAliveClientMixin, TickerProviderStateMixin {
-  final List tabs = ['衣', '食', '住', '行', '用'];
+  List tabs = ['衣', '食', '住', '行', '用'];
   late TabController _tabController;
   late PageController _pageController;
 
@@ -588,7 +588,7 @@ class _CalculateState extends State<Calculate>
           bottom: TabBar(
             tabs: tabs
                 .map((e) => Tab(
-                      text: e,
+                      text: e.toString().tr,
                     ))
                 .toList(),
             controller: _tabController,

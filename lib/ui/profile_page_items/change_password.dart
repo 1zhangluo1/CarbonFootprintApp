@@ -35,13 +35,13 @@ class ChangePassDialog extends StatelessWidget {
                 controller: _oldPass,
                 decoration: InputDecoration(
                   labelText: "原密码".tr,
-                  hintText: "输入原密码验证".tr,
+                  hintText: "原密码".tr,
                   // helperText: '用户名',
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(16))),
                 ),
                 validator: (v) {
-                  return v!.trim().isNotEmpty ? null : "原密码不能为空";
+                  return v!.trim().isNotEmpty ? null : "原密码不能为空".tr;
                 },
               ),
               const SizedBox(
@@ -53,7 +53,7 @@ class ChangePassDialog extends StatelessWidget {
                   obscureText: isShowNew.value,
                   decoration: InputDecoration(
                     labelText: "新密码".tr,
-                    hintText: "输入新密码".tr,
+                    hintText: "新密码".tr,
                     suffixIcon: IconButton(
                       onPressed: () {
                         isShowNew.value = !isShowNew.value;
@@ -66,7 +66,7 @@ class ChangePassDialog extends StatelessWidget {
                         borderRadius: BorderRadius.all(Radius.circular(16))),
                   ),
                   validator: (v) {
-                    return v!.trim().isNotEmpty ? null : "新密码不能为空";
+                    return v!.trim().isNotEmpty ? null : "新密码不能为空".tr;
                   },
                 ),
               ),
@@ -79,7 +79,7 @@ class ChangePassDialog extends StatelessWidget {
                   obscureText: isShowConfirm.value,
                   decoration: InputDecoration(
                     labelText: "确认新密码".tr,
-                    hintText: "再次输入新密码确认".tr,
+                    hintText: "确认新密码".tr,
                     suffixIcon: IconButton(
                       onPressed: () {
                         isShowConfirm.value = !isShowConfirm.value;
@@ -92,7 +92,7 @@ class ChangePassDialog extends StatelessWidget {
                         borderRadius: BorderRadius.all(Radius.circular(16))),
                   ),
                   validator: (v) {
-                    return v!.trim() == _newPass.text ? null : "两次输入不一致";
+                    return v!.trim() == _newPass.text ? null : "两次输入不一致".tr;
                   },
                 ),
               ),
@@ -147,7 +147,7 @@ class ChangePassDialog extends StatelessWidget {
         pref.setBool("isLogin", false);
         Global.profile.value = User(0, "", "");
         old.Fluttertoast.showToast(
-            msg: '密码修改成功，请重新登录',
+            msg: '密码修改成功，请重新登录'.tr,
             backgroundColor: Colors.white54,
             textColor: Colors.black);
         Navigator.of(context).pop();

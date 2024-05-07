@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:math';
 import 'package:carbon_foot_print/common/Global.dart';
 import 'package:carbon_foot_print/gen/assets.gen.dart';
-import 'package:charts_painter/chart.dart';
 import 'package:dio/dio.dart' as dios;
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
@@ -12,8 +11,6 @@ import 'package:fluttertoast/fluttertoast.dart' as old;
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_chart/flutter_chart.dart' as bar;
 
 class Analyze extends StatefulWidget {
   const Analyze({
@@ -357,6 +354,7 @@ class _AnalyzeState extends State<Analyze> {
       if (response.data['code'] == 201) {
         Map<dynamic, dynamic> pie = response.data["msg"];
         pieData = pie.cast<String, num>();
+        print(pieData);
         _pieDataList.clear();
         int i = 0;
         pieData.forEach((key, value) {
@@ -520,15 +518,15 @@ class _AnalyzeState extends State<Analyze> {
               getTitles: (double value) {
                 switch (value.toInt()) {
                   case 0:
-                    return name[0];
+                    return name[0].tr;
                   case 1:
-                    return name[1];
+                    return name[1].tr;
                   case 2:
-                    return name[2];
+                    return name[2].tr;
                   case 3:
-                    return name[3];
+                    return name[3].tr;
                   case 4:
-                    return name[4];
+                    return name[4].tr;
                   default:
                     return '';
                 }
@@ -554,40 +552,40 @@ class _AnalyzeState extends State<Analyze> {
           BarChartGroupData(x: 0, barsSpace: 8, barRods: [
             BarChartRodData(
                 y: data[0],
-                colors: Global.coolColors,
-                width: 25,
+                colors: [Colors.orangeAccent, Colors.redAccent],
+                width: 30,
                 borderRadius: BorderRadius.vertical(
                     bottom: Radius.zero, top: Radius.circular(30)))
           ]),
           BarChartGroupData(x: 1, barsSpace: 8, barRods: [
             BarChartRodData(
                 y: data[1],
-                colors: Global.coolColors,
-                width: 25,
+                colors: [Colors.blueAccent, Colors.cyanAccent],
+                width: 30,
                 borderRadius: BorderRadius.vertical(
                     bottom: Radius.zero, top: Radius.circular(30)))
           ]),
           BarChartGroupData(x: 2, barsSpace: 8, barRods: [
             BarChartRodData(
                 y: data[2],
-                colors: Global.coolColors,
-                width: 25,
+                colors: [Colors.pinkAccent, Colors.deepPurpleAccent],
+                width: 30,
                 borderRadius: BorderRadius.vertical(
                     bottom: Radius.zero, top: Radius.circular(30)))
           ]),
           BarChartGroupData(x: 3, barsSpace: 8, barRods: [
             BarChartRodData(
                 y: data[3],
-                colors: Global.coolColors,
-                width: 25,
+                colors: [Colors.yellowAccent, Colors.greenAccent],
+                width: 30,
                 borderRadius: BorderRadius.vertical(
                     bottom: Radius.zero, top: Radius.circular(30)))
           ]),
           BarChartGroupData(x: 4, barsSpace: 8, barRods: [
             BarChartRodData(
                 y: data[4],
-                colors: Global.coolColors,
-                width: 25,
+                colors: [Colors.tealAccent, Colors.cyan],
+                width: 30,
                 borderRadius: BorderRadius.vertical(
                     bottom: Radius.zero, top: Radius.circular(30)))
           ]),

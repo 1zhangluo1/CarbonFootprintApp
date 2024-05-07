@@ -36,7 +36,7 @@ class _ExcuteState extends State<Execute> {
                   alignment: Alignment.centerLeft,
                   child: Text(
                     textAlign: TextAlign.start,
-                    widget.item.name,
+                    widget.item.name.tr,
                     textScaleFactor: 1.4,
                   ),
                 ),
@@ -56,15 +56,15 @@ class _ExcuteState extends State<Execute> {
                       inputFormatters: [
                         FilteringTextInputFormatter.allow(RegExp("[0-9.]")),
                       ],
-                      decoration: const InputDecoration(
-                          focusedBorder: OutlineInputBorder(
+                      decoration: InputDecoration(
+                          focusedBorder: const OutlineInputBorder(
                               borderRadius:
                                   BorderRadius.all(Radius.circular(10)),
                               borderSide: BorderSide(
                                   color: Color.fromARGB(255, 182, 229, 205),
                                   width: 2)),
-                          hintText: "数量",
-                          border: OutlineInputBorder(
+                          hintText: "数量".tr,
+                          border: const OutlineInputBorder(
                             borderRadius: BorderRadius.all(Radius.circular(10)),
                           )),
                     ),
@@ -75,7 +75,7 @@ class _ExcuteState extends State<Execute> {
                   margin: const EdgeInsets.only(right: 10),
                   child: Text(
                     textAlign: TextAlign.right,
-                    widget.item.type,
+                    widget.item.type.tr,
                     textScaleFactor: 1.4,
                   ),
                 ),
@@ -91,9 +91,9 @@ class _ExcuteState extends State<Execute> {
                       ParamDialog dialog = ParamDialog(widget.item);
                       showResult(dialog);
                     } else if (number.text.isEmpty) {
-                      Toast("错误提醒", "输入不能为空哦");
+                      Toast("提醒".tr, "输入不能为空哦".tr);
                     } else
-                      Toast("错误提醒", "请规范输入");
+                      Toast("提醒".tr, "请规范输入".tr);
                   },
                   style: ElevatedButton.styleFrom(
                       backgroundColor: const Color.fromARGB(255, 93, 236, 164),
@@ -101,10 +101,10 @@ class _ExcuteState extends State<Execute> {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10.0),
                       )),
-                  child: const Text(
-                    "计算",
+                  child: Text(
+                    "计算".tr,
                     textScaleFactor: 1.3,
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Colors.white,
                     ),
                   )),
