@@ -21,10 +21,8 @@ class _PraiseState extends State<Praise> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       appBar: AppBar(
         title: Text("给开发者点赞".tr),
-        backgroundColor: Colors.white,
       ),
       body: SingleChildScrollView(
         child: Center(

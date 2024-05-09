@@ -64,7 +64,11 @@ class _AnalyzeState extends State<Analyze> {
     //final Random _random = Random();
     // List<List<Color>> all_color = [cold_colors, warm_colors];
     // List<Color> colors = all_color[_random.nextInt(2)];
-    List<Color> areaColors = [Theme.of(context).primaryColor.withOpacity(0.2)];
+    List<Color> areaColors = [Theme
+        .of(context)
+        .primaryColor
+        .withOpacity(0.2)
+    ];
     return Scaffold(
       body: SingleChildScrollView(
         child: Padding(
@@ -132,7 +136,7 @@ class _AnalyzeState extends State<Analyze> {
                                 const CircularProgressIndicator(),
                                 Padding(
                                     padding:
-                                        EdgeInsets.symmetric(vertical: 10)),
+                                    EdgeInsets.symmetric(vertical: 10)),
                                 Text("加载中...".tr),
                               ],
                             ),
@@ -183,7 +187,7 @@ class _AnalyzeState extends State<Analyze> {
                                 const CircularProgressIndicator(),
                                 Padding(
                                     padding:
-                                        EdgeInsets.symmetric(vertical: 10)),
+                                    EdgeInsets.symmetric(vertical: 10)),
                                 Text("加载中...".tr),
                               ],
                             ),
@@ -217,19 +221,21 @@ class _AnalyzeState extends State<Analyze> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 25.0),
                 child: SizedBox(
-                  height: 200,
+                  height: 250,
                   child: FutureBuilder(
                     future: getLineData(),
                     builder: (BuildContext context, AsyncSnapshot snapshot) {
                       if (snapshot.connectionState == ConnectionState.done) {
                         if (snapshot.hasError) {
                           return Center(
-                            child: Text('加载错误：' + snapshot.error.toString()),
+                            child: Text(
+                                '加载错误：' + snapshot.error.toString()),
                           );
                         } else {
                           return LineChart(
                             LineChartData(
                               clipData: FlClipData.vertical(),
+                              maxY: findMax(line_data),
                               minY: 0,
                               gridData: FlGridData(
                                 drawHorizontalLine: true,
@@ -278,14 +284,15 @@ class _AnalyzeState extends State<Analyze> {
                                     },
                                     margin: 15),
                                 leftTitles: SideTitles(
-                                    reservedSize: 15,
-                                    showTitles: true,
-                                    getTextStyles: (value) {
-                                      return const TextStyle(
-                                          color: Colors.black, fontSize: 15);
-                                    },
-                                    margin: 20,
-                                    interval: 10),
+                                  reservedSize: 15,
+                                  showTitles: true,
+                                  getTextStyles: (value) {
+                                    return const TextStyle(
+                                        color: Colors.black, fontSize: 15);
+                                  },
+                                  margin: 20,
+                                  interval: findMax(line_data) > 1000 ? 200 : ((findMax(line_data) > 100) ? 50 : 10),
+                                ),
                               ),
                               lineBarsData: [
                                 LineChartBarData(
@@ -350,7 +357,7 @@ class _AnalyzeState extends State<Analyze> {
       dios.Dio dio = dios.Dio();
       dio.options.headers = {'token': token};
       dios.Response response =
-          await dio.get('https://www.jzhangluo.com/v1/record?query=pie');
+      await dio.get('https://www.jzhangluo.com/v1/record?query=pie');
       if (response.data['code'] == 201) {
         Map<dynamic, dynamic> pie = response.data["msg"];
         pieData = pie.cast<String, num>();
@@ -367,7 +374,8 @@ class _AnalyzeState extends State<Analyze> {
         });
         if (_pieDataList.isEmpty) {
           _pieDataList.add(
-              EChartPieBean(title: '无数据', number: 1, color: Global.themeColor));
+              EChartPieBean(
+                  title: '无数据', number: 1, color: Global.themeColor));
         }
       } else {
         throw Exception(response.data['msg']);
@@ -388,7 +396,7 @@ class _AnalyzeState extends State<Analyze> {
       dios.Dio dio = dios.Dio();
       dio.options.headers = {'token': token};
       dios.Response response =
-          await dio.get('https://www.jzhangluo.com/v1/record?query=topFive');
+      await dio.get('https://www.jzhangluo.com/v1/record?query=topFive');
       if (response.data['code'] == 202) {
         Map<dynamic, dynamic> topFive = response.data['msg'];
         Map<int, Map<String, double>> convertedMap = {};
@@ -433,7 +441,7 @@ class _AnalyzeState extends State<Analyze> {
       dios.Dio dio = dios.Dio();
       dio.options.headers = {'token': token};
       dios.Response response =
-          await dio.get('https://www.jzhangluo.com/v1/record?query=recent');
+      await dio.get('https://www.jzhangluo.com/v1/record?query=recent');
       if (response.data['code'] == 203) {
         Map<dynamic, dynamic> temp = response.data['msg'];
         lineData = temp.cast<String, num>();
@@ -496,7 +504,10 @@ class _AnalyzeState extends State<Analyze> {
       dataList: data,
       isLog: false,
       isLineText: true,
-      bgColor: Theme.of(context).colorScheme.background,
+      bgColor: Theme
+          .of(context)
+          .colorScheme
+          .background,
       isFrontgText: false,
       initSelect: -2,
       openType: OpenType.ANI,
@@ -614,4 +625,13 @@ class _AnalyzeState extends State<Analyze> {
     String formatDate = DateFormat('MM-dd').format(dateTime);
     return formatDate;
   }
+
+  double findMax(List<String> lineData) {
+    double max = 0;
+    for (int i = 0; i < line_data.length; i++) {
+      if (double.parse(line_data[i]) > max) max = double.parse(line_data[i]);
+    }
+    return max;
+  }
+
 }

@@ -44,13 +44,13 @@ class _PageState extends State<Page114> {
                       padding: const EdgeInsets.all(20),
                       child: Row(
                         children: [
-                          Image(
+                          const Image(
                             image: AssetImage("images/carbon.png"),
                             width: 50,
                             height: 50,
                             fit: BoxFit.contain,
                           ),
-                          Padding(padding: EdgeInsets.only(right: 30)),
+                          const Padding(padding: EdgeInsets.only(right: 30)),
                           Obx(() {
                             return Global.isLogin.value
                                 ? Column(
@@ -87,7 +87,7 @@ class _PageState extends State<Page114> {
                     children: [
                       ListTile(
                         onTap: () {
-                          Get.dialog(ChangePassDialog());
+                          Get.dialog(const ChangePassDialog());
                         },
                         leading: const Icon(Icons.border_color),
                         // Icon for "评教"
@@ -149,7 +149,7 @@ class _PageState extends State<Page114> {
                         // Icon for the version tile
                         title: Text.rich(TextSpan(children: [
                           TextSpan(text: "版本：".tr),
-                          TextSpan(text: "1.1.0"),
+                          const TextSpan(text: "1.1.0"),
                         ])),
                         trailing: const Icon(Icons.arrow_forward_ios_outlined),
                       ),
@@ -190,7 +190,7 @@ class _PageState extends State<Page114> {
                             TextSpan(children: [
                               TextSpan(
                                   text:
-                                      "一个使用 Flutter 开发的 碳足迹计算器，此项目正在开发中，更多信息请关注 "
+                                      "一个使用 Flutter 开发的 碳足迹计算器，此项目地址："
                                           .tr),
                               TextSpan(
                                   text:

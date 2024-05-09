@@ -1,10 +1,10 @@
 import 'package:carbon_foot_print/common/Global.dart';
 import 'package:carbon_foot_print/internation/Internet.dart';
 import 'package:carbon_foot_print/routes/route.dart';
+import 'package:carbon_foot_print/ui/Ad/Ad.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 void main() => Global.init().then((e) => runApp(MyApp()));
 
@@ -24,19 +24,9 @@ class _MyApp extends State<MyApp> {
         systemNavigationBarColor: Colors.transparent);
     SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
-    // return MaterialApp(
-    //   title: "碳足迹计算器",
-    //   theme: ThemeData(
-    //     useMaterial3: true,
-    //     colorScheme: ColorScheme.fromSeed(
-    //       seedColor: Colors.green,
-    //     ),
-    //   ),
-    //   debugShowCheckedModeBanner: false,
-    //   home: AppRoute.routes,
-    // );
     return GetMaterialApp(
-      title: "碳足迹计算器",
+      title: '碳足迹计算器',
+      home: Ad(),
       darkTheme: ThemeData.dark(),
       // 默认夜间模式主题
       themeMode: ThemeMode.system,
@@ -49,6 +39,7 @@ class _MyApp extends State<MyApp> {
       ),
       translations: Internet(),
       debugShowCheckedModeBanner: false,
+      defaultTransition: Transition.fadeIn,
       navigatorKey: AppRoute.navigatorKey,
       getPages: AppRoute.routes,
     );

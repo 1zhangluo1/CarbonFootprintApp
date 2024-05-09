@@ -1,5 +1,6 @@
 import 'package:carbon_foot_print/Utils/CloseKeyBoard.dart';
 import 'package:carbon_foot_print/common/Global.dart';
+import 'package:carbon_foot_print/ui/Ad/Ad.dart';
 import 'package:carbon_foot_print/ui/home.dart';
 import 'package:carbon_foot_print/ui/login/login.dart';
 import 'package:carbon_foot_print/ui/login/register.dart';
@@ -25,6 +26,7 @@ class AppRoute {
   static const String language_select = "/language_select";
   static const String praise_author = "/praise_author";
   static const String about_our_app = "/about_our_app";
+  static const String ad = '/ad';
 
   static List<GetPage> routes = [
     GetPage(
@@ -64,6 +66,11 @@ class AppRoute {
     GetPage(
         name: about_our_app,
         page: () => const Information(),
+        binding: DetailBinding(focusNode: Global.focusNode_ai),
+        transition: Transition.cupertino),
+    GetPage(
+        name: ad,
+        page: () => const Ad(),
         binding: DetailBinding(focusNode: Global.focusNode_ai),
         transition: Transition.cupertino),
   ];

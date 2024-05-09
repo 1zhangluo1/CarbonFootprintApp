@@ -88,6 +88,8 @@ class _ExcuteState extends State<Execute> {
                     if (isNumeric(number.text)) {
                       widget.item.num = double.parse(number.text);
                       widget.item.calculateResult(double.parse(number.text));
+                      if (Global.focusNode_cal.hasFocus)
+                        Global.focusNode_cal.unfocus();
                       ParamDialog dialog = ParamDialog(widget.item);
                       showResult(dialog);
                     } else if (number.text.isEmpty) {
