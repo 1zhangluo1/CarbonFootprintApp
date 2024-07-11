@@ -204,7 +204,7 @@ class _RegisterState extends State<Register> {
         "email": email,
       });
       dios.Response response = await dio
-          .post("https://www.jzhangluo.com/v1/send_code", data: formData);
+          .post("https://carbon.jzhangluo.com/v1/send_code", data: formData);
       String resultMsg = response.data['msg'];
       if (response.data['code'] == 200) {
         Toast("已发送", resultMsg);
@@ -247,7 +247,7 @@ class _RegisterState extends State<Register> {
     });
     try {
       dios.Response response = await dio
-          .post("https://www.jzhangluo.com/v1/register", data: formData);
+          .post("https://carbon.jzhangluo.com/v1/register", data: formData);
       if (response.data['code'] == 200) {
         result = response.data['msg'];
         Toast(result, "5s后返回登录页");

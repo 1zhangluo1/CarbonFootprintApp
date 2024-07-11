@@ -144,7 +144,7 @@ class _Record extends State<History> {
         'token': token,
       };
       dios.Response response =
-          await dio.get('https://www.jzhangluo.com/v1/record');
+          await dio.get('https://carbon.jzhangluo.com/v1/record');
       if (response.data['code'] == 200) {
         List<dynamic> recordsTemp = response.data['msg'];
         records = recordsTemp.map((e) => Record.fromJson(e)).toList();

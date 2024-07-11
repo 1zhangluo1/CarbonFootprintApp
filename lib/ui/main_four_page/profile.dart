@@ -149,7 +149,7 @@ class _PageState extends State<Page114> {
                         // Icon for the version tile
                         title: Text.rich(TextSpan(children: [
                           TextSpan(text: "版本：".tr),
-                          const TextSpan(text: "1.1.0"),
+                          const TextSpan(text: "1.0.0"),
                         ])),
                         trailing: const Icon(Icons.arrow_forward_ios_outlined),
                       ),

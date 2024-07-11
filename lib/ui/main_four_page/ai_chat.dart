@@ -118,10 +118,6 @@ class _AiState extends State<AiChat> with AutomaticKeepAliveClientMixin {
                                 if (!formKey.currentState!.validate()) {
                                   return;
                                 }
-                                if (!Global.isLogin.value) {
-                                  Toast('请先登录', '登录后方可使用此功能');
-                                  return;
-                                }
                                 isSending.value = true;
                                 if (Global.focusNode_ai.hasFocus) Global.focusNode_ai.unfocus();
                                 questions.add(" ");
@@ -140,10 +136,6 @@ class _AiState extends State<AiChat> with AutomaticKeepAliveClientMixin {
                     },
                     onEditingComplete: () async {
                       if (!formKey.currentState!.validate()) {
-                        return;
-                      }
-                      if (!Global.isLogin.value) {
-                        Toast('请先登录', '登录后方可使用此功能');
                         return;
                       }
                       isSending.value = true;

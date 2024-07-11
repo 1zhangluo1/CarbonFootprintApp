@@ -84,7 +84,7 @@ class ParamDialog extends StatelessWidget {
         'token': token,
       };
       dios.Response response = await dio
-          .post('https://www.jzhangluo.com/v1/save_calculate', data: body);
+          .post('https://carbon.jzhangluo.com/v1/save_calculate', data: body);
       if (response.data['code'] == 200) {
         Toast("保存成功", "");
         Navigator.of(context).pop();

@@ -140,7 +140,7 @@ class ChangePassDialog extends StatelessWidget {
         'confirm_new_pass': confirmPass
       };
       dios.Response response = await dio
-          .put('https://www.jzhangluo.com/v1/change_pass', data: changeBody);
+          .put('https://carbon.jzhangluo.com/v1/change_pass', data: changeBody);
       if (response.data['code'] == 200) {
         Global.isLogin.value = false;
         SharedPreferences pref = await SharedPreferences.getInstance();

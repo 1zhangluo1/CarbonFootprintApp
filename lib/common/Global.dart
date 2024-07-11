@@ -106,7 +106,7 @@ class Global {
         'token': token,
       };
       dio.Response response =
-          await dios.get('https://www.jzhangluo.com/v1/user_info');
+          await dios.get('https://carbon.jzhangluo.com/v1/user_info');
       if (response.data['code'] == 200) {
         Global.profile.value = User(response.data['msg']['uid'],
             response.data['msg']['username'], response.data['msg']['email']);

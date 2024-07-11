@@ -226,7 +226,8 @@ class _LoginPageState extends State<LoginPage> {
         'password': password,
       });
       dio.Response response =
-          await dios.post('https://www.jzhangluo.com/v1/login', data: formData);
+          await dios.post('https://carbon.jzhangluo.com/v1/login', data: formData);
+      print(response.data);
       if (response.data['code'] == 200) {
         initUser(response.data['token']);
         final snackBar = SnackBar(
@@ -241,6 +242,7 @@ class _LoginPageState extends State<LoginPage> {
         Toast(response.data['msg'], "请检查输入后，重新尝试");
       }
     } on Exception catch (e) {
+      print(e.toString());
       Toast('请检查网络连接'.tr, e.toString());
       Navigator.of(context).pop();
     }
@@ -253,7 +255,7 @@ class _LoginPageState extends State<LoginPage> {
         'token': token,
       };
       dio.Response response =
-          await dios.get('https://www.jzhangluo.com/v1/user_info');
+          await dios.get('https://carbon.jzhangluo.com/v1/user_info');
       if (response.data['code'] == 200) {
         Global.profile.value = User(response.data['msg']['uid'],
             response.data['msg']['username'], response.data['msg']['email']);

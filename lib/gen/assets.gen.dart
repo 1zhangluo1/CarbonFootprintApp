@@ -97,6 +97,9 @@ class $ImagesGen {
   /// File path: images/gas.png
   AssetGenImage get gas => const AssetGenImage('images/gas.png');
 
+  /// File path: images/img.png
+  AssetGenImage get img => const AssetGenImage('images/img.png');
+
   /// File path: images/lamp.png
   AssetGenImage get lamp => const AssetGenImage('images/lamp.png');
 
@@ -205,6 +208,7 @@ class $ImagesGen {
         coffee,
         egg,
         gas,
+        img,
         lamp,
         liquid,
         logo,

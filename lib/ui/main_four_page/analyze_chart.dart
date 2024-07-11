@@ -242,12 +242,14 @@ class _AnalyzeState extends State<Analyze> {
                               ),
                               borderData: FlBorderData(
                                   show: true,
-                                  border: const Border(
+                                  border:  Border(
                                     bottom: BorderSide(
                                       width: 2.5,
+                                      color:Theme.of(context).colorScheme.onSurface,
                                     ),
                                     left: BorderSide(
                                       width: 2.5,
+                                      color:Theme.of(context).colorScheme.onSurface,
                                     ),
                                     top: BorderSide.none,
                                     right: BorderSide.none,
@@ -259,8 +261,8 @@ class _AnalyzeState extends State<Analyze> {
                                     reservedSize: 10,
                                     showTitles: true,
                                     getTextStyles: (value) {
-                                      return const TextStyle(
-                                          color: Colors.black, fontSize: 15);
+                                      return TextStyle(
+                                          color: Theme.of(context).colorScheme.onSurface, fontSize: 15);
                                     },
                                     getTitles: (value) {
                                       switch (value) {
@@ -287,8 +289,8 @@ class _AnalyzeState extends State<Analyze> {
                                   reservedSize: 15,
                                   showTitles: true,
                                   getTextStyles: (value) {
-                                    return const TextStyle(
-                                        color: Colors.black, fontSize: 15);
+                                    return TextStyle(
+                                        color:Theme.of(context).colorScheme.onSurface, fontSize: 15);
                                   },
                                   margin: 20,
                                   interval: findMax(line_data) > 1000 ? 200 : ((findMax(line_data) > 100) ? 50 : 10),
@@ -357,7 +359,7 @@ class _AnalyzeState extends State<Analyze> {
       dios.Dio dio = dios.Dio();
       dio.options.headers = {'token': token};
       dios.Response response =
-      await dio.get('https://www.jzhangluo.com/v1/record?query=pie');
+      await dio.get('https://carbon.jzhangluo.com/v1/record?query=pie');
       if (response.data['code'] == 201) {
         Map<dynamic, dynamic> pie = response.data["msg"];
         pieData = pie.cast<String, num>();
@@ -396,7 +398,7 @@ class _AnalyzeState extends State<Analyze> {
       dios.Dio dio = dios.Dio();
       dio.options.headers = {'token': token};
       dios.Response response =
-      await dio.get('https://www.jzhangluo.com/v1/record?query=topFive');
+      await dio.get('https://carbon.jzhangluo.com/v1/record?query=topFive');
       if (response.data['code'] == 202) {
         Map<dynamic, dynamic> topFive = response.data['msg'];
         Map<int, Map<String, double>> convertedMap = {};
@@ -441,7 +443,7 @@ class _AnalyzeState extends State<Analyze> {
       dios.Dio dio = dios.Dio();
       dio.options.headers = {'token': token};
       dios.Response response =
-      await dio.get('https://www.jzhangluo.com/v1/record?query=recent');
+      await dio.get('https://carbon.jzhangluo.com/v1/record?query=recent');
       if (response.data['code'] == 203) {
         Map<dynamic, dynamic> temp = response.data['msg'];
         lineData = temp.cast<String, num>();
@@ -543,18 +545,20 @@ class _AnalyzeState extends State<Analyze> {
                 }
               },
               getTextStyles: (value) {
-                return TextStyle(color: Colors.black, fontSize: 15);
+                return TextStyle(color: Theme.of(context).colorScheme.onSurface, fontSize: 15);
               }),
           leftTitles: SideTitles(showTitles: false),
         ),
         borderData: FlBorderData(
             show: true,
-            border: const Border(
+            border:  Border(
               bottom: BorderSide(
                 width: 2.5,
+                color:Theme.of(context).colorScheme.onSurface,
               ),
               left: BorderSide(
                 width: 2.5,
+                color:Theme.of(context).colorScheme.onSurface,
               ),
               top: BorderSide.none,
               right: BorderSide.none,
